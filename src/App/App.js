@@ -6,6 +6,8 @@ import Auth from '../components/Auth/auth';
 import MyNavBar from '../components/MyNavbar/MyNavBar';
 import Profile from '../components/Profile/profile';
 import Commits from '../components/CommitsData/commitsData';
+import TutorialsCrud from '../components/TutorialsCrud/tutorialsCrud';
+import Tutorials from '../components/Tutorials/tutorials';
 import connection from '../helpers/data/connection';
 import './App.scss';
 import authRequests from '../helpers/data/authRequests';
@@ -56,6 +58,8 @@ class App extends Component {
         <MyNavBar isAuthed={this.state.authed} logoutClickEvent={logoutClickEvent}/>
         <Profile />
         <Commits />
+        <Tutorials />
+        <TutorialsCrud />
         </div>
     );
   }
