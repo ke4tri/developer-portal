@@ -4,6 +4,8 @@ import 'firebase/auth';
 // import { Button } from 'reactstrap';
 import Auth from '../components/Auth/auth';
 import MyNavBar from '../components/MyNavbar/MyNavBar';
+import Profile from '../components/Profile/profile';
+import Commits from '../components/CommitsData/commitsData';
 import connection from '../helpers/data/connection';
 import './App.scss';
 import authRequests from '../helpers/data/authRequests';
@@ -52,7 +54,8 @@ class App extends Component {
     return (
       <div className="App">
         <MyNavBar isAuthed={this.state.authed} logoutClickEvent={logoutClickEvent}/>
-        {/* <Profile /> */}
+        <Profile />
+        <Commits />
         </div>
     );
   }
