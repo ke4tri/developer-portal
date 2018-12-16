@@ -1,0 +1,19 @@
+{
+  "blogs": {
+    "blog0": {
+      "name": "CodeBetter",
+      "url": "https://http://codebetter.com/",
+      "uid": "Q0XwOXkDM8M0RIrnjpW1egE99cg2"
+    },
+    "blog1": {
+      "name": "A List Apart",
+      "url": "https://alistapart.com/",
+      "uid": "Q0XwOXkDM8M0RIrnjpW1egE99cg2"
+    },
+    "blog2": {
+      "name": "PhraseApp Blog",
+      "url": "https://phraseapp.com/blog/",
+      "uid": "Q0XwOXkDM8M0RIrnjpW1egE99cg2"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "podcasts": {
+    "podcast0": {
+      "name": "The Vanilla JS Podcast",
+      "url": "https://vanillajspodcast.com",
+      "uid": "Q0XwOXkDM8M0RIrnjpW1egE99cg2"
+    },
+    "podcast1": {
+      "name": "5 minutes of React",
+      "url": "https://5minreact.audio/",
+      "uid": "Q0XwOXkDM8M0RIrnjpW1egE99cg2"
+    },
+    "podcast2": {
+      "name": "JavaScript Air",
+      "url": "https://javascriptair.com",
+      "uid": "Q0XwOXkDM8M0RIrnjpW1egE99cg2"
+    }
+  }
+}
