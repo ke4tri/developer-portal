@@ -7,18 +7,20 @@ import './tutorials.scss';
 class Tutorials extends React.Component {
   static propTypes = {
     tutorials: PropTypes.arrayOf(tutorialShapes),
+    deleteSingleTutorial: PropTypes.func,
   }
 
   render() {
-    const { tutorials } = this.props;
+    const { tutorials, deleteSingleTutorial } = this.props;
     const tutorialItemComponents = tutorials.map(tutorial => (
       <TutorialItems
         tutorial={tutorial}
         key={tutorial.id}
+        deleteSingleTutorial={deleteSingleTutorial}
         />
     ));
     return (
-      <div className="tutorials col">
+      <div className="tutorials2 col">
         <h2>Tutorials</h2>
         <ul>
           {tutorialItemComponents}
