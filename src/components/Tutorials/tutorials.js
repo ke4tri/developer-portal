@@ -5,10 +5,24 @@ import TutorialItems from '../TutorialItems/TutorialItems';
 import './tutorials.scss';
 
 class Tutorials extends React.Component {
+  static propTypes = {
+    tutorials: PropTypes.arrayOf(tutorialShapes),
+  }
+
   render() {
+    const { tutorials } = this.props;
+    const tutorialItemComponents = tutorials.map(tutorial => (
+      <TutorialItems
+        tutorial={tutorial}
+        key={tutorial.id}
+        />
+    ));
     return (
-      <div className="profile">
-        <h2>Tutorials</h2>
+      <div className="tutorials col">
+        <h2>Should be Tutorials</h2>
+        <ul>
+          {tutorialItemComponents}
+        </ul>
       </div>
     );
   }
