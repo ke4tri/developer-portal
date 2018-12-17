@@ -10,7 +10,8 @@ import TutorialsCrud from '../components/TutorialsCrud/tutorialsCrud';
 import Tutorials from '../components/Tutorials/tutorials';
 import Tabs from '../components/Tabs/tabs';
 import connection from '../helpers/data/connection';
-import getRequest from '../helpers/data/tutorialRequest';
+import getRequest2 from '../helpers/data/tutorialRequest';
+
 import './App.scss';
 import authRequests from '../helpers/data/authRequests';
 
@@ -23,7 +24,7 @@ class App extends Component {
   componentDidMount() {
     connection();
 
-    getRequest()
+    getRequest2.getRequest()
       .then((tutorials) => {
         this.setState({ tutorials });
       })
@@ -50,6 +51,18 @@ class App extends Component {
     this.setState({ authed: true });
   }
 
+  deleteOne = (tutorialId) => {
+    getRequest2.deleteTutorial(tutorialId)
+      .then(() => {
+        getRequest2.getRequest()
+          .then((tutorials) => {
+            this.setState({ tutorials });
+          });
+      })
+      .catch(err => console.error('error with delete single', err));
+  }
+
+
   render() {
     const logoutClickEvent = () => {
       authRequests.logoutUser();
@@ -69,10 +82,11 @@ class App extends Component {
         <Profile />
         <Commits />
         <Tabs />
+        <TutorialsCrud />
         <Tutorials
         tutorials={this.state.tutorials}
+        deleteSingleTutorial={this.deleteOne}
         />
-        <TutorialsCrud />
         </div>
     );
   }
