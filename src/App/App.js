@@ -17,8 +17,10 @@ import MyNavBar from '../components/MyNavbar/MyNavBar';
 // import Profile from '../components/Profile/profile';
 // import Commits from '../components/CommitsData/commitsData';
 import TutorialsCrud from '../components/TutorialsCrud/tutorialsCrud';
-import Tutorials from '../components/Tutorials/tutorials';
-// import Tabs from '../components/Tabs/tabs';
+import Tutorials from '../components/Window/Tutorials/tutorials';
+import Blogs from '../components/Window/Blogs/blogs';
+import Resources from '../components/Window/Resourc/resources';
+import Podcasts from '../components/Window/Podcast/podcast';
 import connection from '../helpers/data/connection';
 import getRequest2 from '../helpers/data/tutorialRequest';
 
@@ -150,40 +152,17 @@ class App extends Component {
               />
         </TabPane>
         <TabPane tabId="2">
-        <Row>
-            <Col sm="12">
-              <h4>Bio shit?</h4>
-            </Col>
-          </Row>
+          <Blogs />
         </TabPane>
         <TabPane tabId="3">
-          <Row>
-            <Col sm="12">
-              <h4>Other shit?</h4>
-            </Col>
-          </Row>
+          <Resources />
         </TabPane>
         <TabPane tabId="4">
-          <Row>
-            <Col sm="12">
-              <h4>And again more shit</h4>
-            </Col>
-          </Row>
+          <Podcasts />
         </TabPane>
       </TabContent>
     </div>
     </div>
-    // <div className="App">
-    //   <MyNavBar isAuthed={this.state.authed} logoutClickEvent={logoutClickEvent}/>
-    //   <Profile />
-    //   <Commits />
-    //   <Tabs />
-    //   <TutorialsCrud />
-    //   <Tutorials
-    //   tutorials={this.state.tutorials}
-    //   deleteSingleTutorial={this.deleteOne}
-    //   />
-    //   </div>
     );
   }
 }

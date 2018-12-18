@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import tutorialShapes from '../../helpers/propz/tutorialShapes';
-import TutorialItems from '../TutorialItems/TutorialItems';
+import tutorialShapes from '../../../helpers/propz/tutorialShapes';
+import TutorialItems from '../../TutorialItems/TutorialItems'
 import './tutorials.scss';
 
 class Tutorials extends React.Component {
