@@ -1,30 +1,110 @@
-import React from 'react';
-import './tabs.scss';
+// import React from 'react';
+// import {
+//   TabContent,
+//   TabPane,
+//   Nav,
+//   NavItem,
+//   NavLink,
+//   Card,
+//   Button,
+//   CardTitle,
+//   CardText,
+//   Row,
+//   Col,
+// } from 'reactstrap';
+// import classnames from 'classnames';
+// import './tabs.scss';
 
-class Tabs extends React.Component {
-  render() {
-    return (
-      <div className="tutorials col w-50 wrapTutorials">
-        <nav>
-            <div class="nav nav-tabs" id="nav-tab" role="tablist">
-              <a class="nav-item nav-link active" id="nav-tutorials-tab" data-toggle="tab" href="#nav-tutorials" role="tab" aria-controls="nav-tutorials" aria-selected="true">Tutorials</a>
-              <a class="nav-item nav-link" id="nav-blogs-tab" data-toggle="tab" href="#nav-blogs" role="tab" aria-controls="nav-blogs" aria-selected="false">Blogs</a>
-              <a class="nav-item nav-link" id="nav-resources-tab" data-toggle="tab" href="#nav-resources" role="tab" aria-controls="nav-resources" aria-selected="false">Resources</a>
-              <a class="nav-item nav-link" id="nav-podcasts-tab" data-toggle="tab" href="#nav-podcasts" role="tab" aria-controls="nav-podcasts" aria-selected="false">Podcasts</a>
-            </div>
-        </nav>
-        <div class="tab-content" id="nav-tabContent">
-          <div class="tab-pane fade show active" id="nav-tutorials" role="tabpanel" aria-labelledby="nav-tutorials-tab">tutorials</div>
-          <div class="tab-pane fade" id="nav-blogs" role="tabpanel" aria-labelledby="nav-blogs-tab">blogs</div>
-          <div class="tab-pane fade" id="nav-resources" role="tabpanel" aria-labelledby="nav-resources-tab">resources</div>
-          <div class="tab-pane fade" id="nav-podcasts" role="tabpanel" aria-labelledby="nav-podcasts-tab">podcasts</div>
-        </div>
-        <span></span>
-        <span></span>
-      </div>
-    );
-  }
-}
+// class Tabs extends React.Component {
+//   constructor(props) {
+//     super(props);
 
+//     this.toggle = this.toggle.bind(this);
+//     this.state = {
+//       activeTab: '1',
+//     };
+//   }
 
-export default Tabs;
+//   toggle(tab) {
+//     if (this.state.activeTab !== tab) {
+//       this.setState({
+//         activeTab: tab,
+//       });
+//     }
+//   }
+
+//   render() {
+//     return (
+//       <div className="tabby">
+//         <Nav tabs>
+//           <NavItem>
+//             <NavLink
+//               className={classnames({ active: this.state.activeTab === '1' })}
+//               onClick={() => { this.toggle('1'); }}
+//             >
+//               Tutorials
+//             </NavLink>
+//           </NavItem>
+//           <NavItem>
+//             <NavLink
+//               className={classnames({ active: this.state.activeTab === '2' })}
+//               onClick={() => { this.toggle('2'); }}
+//             >
+//               Blogs
+//             </NavLink>
+//           </NavItem>
+//           <NavItem>
+//             <NavLink
+//               className={classnames({ active: this.state.activeTab === '3' })}
+//               onClick={() => { this.toggle('3'); }}
+//             >
+//               Resources
+//             </NavLink>
+//           </NavItem>
+//           <NavItem>
+//             <NavLink
+//               className={classnames({ active: this.state.activeTab === '4' })}
+//               onClick={() => { this.toggle('4'); }}
+//             >
+//               Podcasts
+//             </NavLink>
+//           </NavItem>
+//         </Nav>
+//         <TabContent activeTab={this.state.activeTab}>
+//           <TabPane tabId="1">
+//             <Row>
+//               <Col sm="12">
+//                 <h4>Put shit here</h4>
+//               </Col>
+//             </Row>
+//           </TabPane>
+//           <TabPane tabId="2">
+//             <Row>
+//                 <Card body>
+//                   <CardTitle>Special Title Treatment</CardTitle>
+//                   <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
+//                   <Button>Go somewhere</Button>
+//                 </Card>
+//             </Row>
+//           </TabPane>
+//           <TabPane tabId="3">
+//             <Row>
+//               <Col sm="12">
+//                 <h4>Other shit?</h4>
+//               </Col>
+//             </Row>
+//           </TabPane>
+//           <TabPane tabId="4">
+//             <Row>
+//               <Col sm="12">
+//                 <h4>And again more shit</h4>
+//               </Col>
+//             </Row>
+//           </TabPane>
+//         </TabContent>
+//       </div>
+//     );
+//   }
+// }
+
+// export default Tabs;
