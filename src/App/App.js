@@ -144,17 +144,17 @@ class App extends Component {
       </Nav>
       <TabContent activeTab={this.state.activeTab}>
         <TabPane tabId="1">
-          <Row>
-            <Col sm="12">
-              <h4>Put shit here</h4>
-            </Col>
-          </Row>
-        </TabPane>
-        <TabPane tabId="2">
-          <Tutorials
+        <Tutorials
             tutorials={this.state.tutorials}
             deleteSingleTutorial={this.deleteOne}
               />
+        </TabPane>
+        <TabPane tabId="2">
+        <Row>
+            <Col sm="12">
+              <h4>Bio shit?</h4>
+            </Col>
+          </Row>
         </TabPane>
         <TabPane tabId="3">
           <Row>
