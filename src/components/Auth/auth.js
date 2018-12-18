@@ -2,8 +2,8 @@ import React from 'react';
 import authRequests from '../../helpers/data/authRequests';
 import './auth.scss';
 
-
 class Auth extends React.Component {
+
   authenticateUser = (e) => {
     e.preventDefault();
     authRequests.authenticate().then(() => {
