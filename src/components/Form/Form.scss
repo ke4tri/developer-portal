@@ -1,0 +1,18 @@
+.form {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 50px;
+}
+
+.form-group {
+  display: flex;
+  justify-content: center;
+}
+
+.crudWrap {
+  align-content: center;
+  border: black solid 2px;
+  max-width: 150px;
+  height: auto;
+  margin-left: 10px;
+}

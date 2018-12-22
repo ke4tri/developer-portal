@@ -10,11 +10,19 @@ class TutorialItems extends React.Component {
     deleteSingleListing: PropTypes.func,
   }
 
+  editEvent = (e) => {
+    e.preventDefault();
+    const { passListingToEdit, listing } = this.props;
+    passListingToEdit(listing.id);
+  }
+
   deleteEvent = (e) => {
     e.preventDefault();
     const { deleteSingleTutorial, tutorial } = this.props;
     deleteSingleTutorial(tutorial.id);
   }
+
+  passListingToEdit = tutorialId => this.setState({ isEditing: true, editId: tutorialId });
 
   render() {
     const { tutorial } = this.props;
@@ -27,7 +35,12 @@ class TutorialItems extends React.Component {
           <span className="col">
           <button className="btn btn-default" onClick={this.deleteEvent}>
           <i className="fas fa-trash-alt"></i>
-          </button></span>
+          </button>
+          </span>
+          <span className="col">
+          <input type="radio" id="radio2" name="radioDisabled" id="radioBlogs" class="custom-Radio-Blogs" />
+          <label className="blogsLabel" for="radioBlogs">DONE</label>
+          </span>
         </div>
         );
       }

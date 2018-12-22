@@ -23,7 +23,7 @@ import Resources from '../components/Window/Resourc/resources';
 import Podcasts from '../components/Window/Podcast/podcast';
 import connection from '../helpers/data/connection';
 import getRequest2 from '../helpers/data/tutorialRequest';
-
+import Form from '../components/Form/Form';
 import './App.scss';
 import authRequests from '../helpers/data/authRequests';
 
@@ -109,6 +109,9 @@ class App extends Component {
       <div className="App">
       <MyNavBar isAuthed={this.state.authed} logoutClickEvent={logoutClickEvent}/>
       <div><TutorialsCrud /></div>
+      <div className="formPrint">
+        <Form />
+      </div>
       <div className="tabby">
       <Nav tabs>
         <NavItem>
