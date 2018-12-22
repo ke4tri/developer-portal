@@ -35,6 +35,9 @@ class Form extends React.Component {
             <label class="resurcLabel" for="radioResourc">Resources</label>
           </div>
         </div>
+        <div>
+          <button class="addButton btn btn-danger ml-4" >+</button>
+        </div>
       </div>
     );
   }

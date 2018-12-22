@@ -10,11 +10,19 @@ class TutorialItems extends React.Component {
     deleteSingleListing: PropTypes.func,
   }
 
+  editEvent = (e) => {
+    e.preventDefault();
+    const { passListingToEdit, listing } = this.props;
+    passListingToEdit(listing.id);
+  }
+
   deleteEvent = (e) => {
     e.preventDefault();
     const { deleteSingleTutorial, tutorial } = this.props;
     deleteSingleTutorial(tutorial.id);
   }
+
+  passListingToEdit = tutorialId => this.setState({ isEditing: true, editId: tutorialId });
 
   render() {
     const { tutorial } = this.props;
@@ -24,6 +32,11 @@ class TutorialItems extends React.Component {
       if (tutorial.uid === uid) {
         return (
         <div>
+          <span className="col">
+              <button className="btn btn-default" onClick={this.editEvent}>
+                <i className="fas fa-pencil-alt"></i>
+              </button>
+            </span>
           <span className="col">
           <button className="btn btn-default" onClick={this.deleteEvent}>
           <i className="fas fa-trash-alt"></i>
