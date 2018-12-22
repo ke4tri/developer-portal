@@ -1,43 +1,124 @@
 /* eslint-disable max-len */
 import React from 'react';
+import PropTypes from 'prop-types';
+import authRequests from '../../helpers/data/authRequests';
+import getSingleTutorial2 from '../../helpers/data/tutorialRequest';
 import './Form.scss';
 
+const defaultListing = {
+  discription: '',
+  url: '',
+  uid: '',
+};
+
+
 class Form extends React.Component {
+  static propTypes = {
+    onSubmit: PropTypes.func,
+    isEditing: PropTypes.bool,
+    editId: PropTypes.string,
+  }
+
+  state = {
+    newListing: defaultListing,
+  }
+
+  formFieldStringState = (name, e) => {
+    e.preventDefault();
+    const tempListing = { ...this.state.newListing };
+    tempListing[name] = e.target.value;
+    this.setState({ newListing: tempListing });
+  }
+
+  formFieldNumberState = (name, e) => {
+    const tempListing = { ...this.state.newListing };
+    tempListing[name] = e.target.value * 1;
+    this.setState({ newListing: tempListing });
+  }
+
+  discriptionChange = e => this.formFieldStringState('discription', e);
+
+  urlChange = e => this.formFieldNumberState('url', e);
+
+  formSubmit = (e) => {
+    e.preventDefault();
+    const { onSubmit } = this.props;
+    const myForm = { ...this.state.newListing };
+    myForm.uid = authRequests.getCurrentUid();
+    onSubmit(myForm);
+    this.setState({ newListing: defaultListing });
+  }
+
+  componentDidUpdate(prevProps) {
+    const { isEditing, editId } = this.props;
+    if (prevProps !== this.props && isEditing) {
+      getSingleTutorial2.getSingleTutorial(editId)
+        .then((listing) => {
+          this.setState({ newListing: listing.data });
+        })
+        .catch(err => console.error('error with getSingleTutorial', err));
+    }
+  }
+
   render() {
+    const { newListing } = this.state;
+    const { isEditing } = this.props;
+    const title = () => {
+      if (isEditing) {
+        return <h2>Edit Listing:</h2>;
+      }
+      return <h2>Add New Listing:</h2>;
+    };
     return (
       <div className="form">
-        <form>
-          <div class="form-group">
+        <form onSubmit={this.formSubmit}>
+          <div className="form-group">
             <label for="exampleInputEmail1"></label>
-            <input type="text" class="form-discription" id="discription" aria-describedby="emailHelp" placeholder="Enter Disctiption" />
+            <input 
+              type="text" 
+              className="form-discription" 
+              id="discription" 
+              aria-describedby="emailHelp" 
+              placeholder="Enter Disctiption"
+              value={newListing.address}
+              onChange={this.discriptionChange} 
+            />
             <label className="ml-3"for="exampleInputEmail1"></label>
-            <input type="text" class="form-url" id="url" aria-describedby="emailHelp" placeholder="Link" />
+            <input 
+              type="text" 
+              className="form-url" 
+              id="url" 
+              aria-describedby="emailHelp" 
+              placeholder="Link"
+              value={newListing.url}
+              onChange={this.urlChange} 
+            />
           </div>
-        </form>
         <div className="crudWrap">
           <div className="custom-radio">
             <input type="radio" id="radio1" name="radioDisabled" class="custom-Radio-Tutorials" />
             <label className="tutorialsLabel" for="radioBlogs">Tutorials</label>
           </div>
 
-          <div class="custom-control custom-radio">
+          <div className="custom-control custom-radio">
             <input type="radio" id="radio2" name="radioDisabled" id="radioBlogs" class="custom-Radio-Blogs" />
-            <label class="blogsLabel" for="radioBlogs">Blogs</label>
+            <label className="blogsLabel" for="radioBlogs">Blogs</label>
           </div>
 
-          <div class="custom-control custom-radio">
+          <div className="custom-control custom-radio">
             <input type="radio" id="radio3" name="radioDisabled" id="radioPodcast" class="custom-Radio-Podcast" />
-            <label class="podcastLabel" for="radioPodcast">Podcast</label>
+            <label className="podcastLabel" for="radioPodcast">Podcast</label>
           </div>
 
-          <div class="custom-control custom-radio">
+          <div className="custom-control custom-radio">
             <input type="radio" id="radio4" name="radioDisabled" id="radioResourc" class="custom-Radio-Resourc" />
-            <label class="resurcLabel" for="radioResourc">Resources</label>
+            <label className="resurcLabel" for="radioResourc">Resources</label>
           </div>
         </div>
         <div>
-          <button class="addButton btn btn-danger ml-4" >+</button>
+          <button className="addButton btn btn-danger ml-4" >+</button>
         </div>
+        </form>
       </div>
     );
   }

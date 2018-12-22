@@ -33,14 +33,14 @@ class TutorialItems extends React.Component {
         return (
         <div>
           <span className="col">
-              <button className="btn btn-default" onClick={this.editEvent}>
-                <i className="fas fa-pencil-alt"></i>
-              </button>
-            </span>
-          <span className="col">
           <button className="btn btn-default" onClick={this.deleteEvent}>
           <i className="fas fa-trash-alt"></i>
-          </button></span>
+          </button>
+          </span>
+          <span className="col">
+          <input type="radio" id="radio2" name="radioDisabled" id="radioBlogs" class="custom-Radio-Blogs" />
+          <label className="blogsLabel" for="radioBlogs">DONE</label>
+          </span>
         </div>
         );
       }
