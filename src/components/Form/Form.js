@@ -6,7 +6,7 @@ import getSingleTutorial2 from '../../helpers/data/tutorialRequest';
 import './Form.scss';
 
 const defaultListing = {
-  discription: '',
+  name: '',
   url: '',
   uid: '',
 };
@@ -36,7 +36,7 @@ class Form extends React.Component {
   //   this.setState({ newListing: tempListing });
   // }
 
-  discriptionChange = e => this.formFieldStringState('discription', e);
+  discriptionChange = e => this.formFieldStringState('name', e);
 
   urlChange = e => this.formFieldStringState('url', e);
 
