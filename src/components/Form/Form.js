@@ -30,15 +30,15 @@ class Form extends React.Component {
     this.setState({ newListing: tempListing });
   }
 
-  formFieldNumberState = (name, e) => {
-    const tempListing = { ...this.state.newListing };
-    tempListing[name] = e.target.value * 1;
-    this.setState({ newListing: tempListing });
-  }
+  // formFieldNumberState = (name, e) => {
+  //   const tempListing = { ...this.state.newListing };
+  //   tempListing[name] = e.target.value * 1;
+  //   this.setState({ newListing: tempListing });
+  // }
 
   discriptionChange = e => this.formFieldStringState('discription', e);
 
-  urlChange = e => this.formFieldNumberState('url', e);
+  urlChange = e => this.formFieldStringState('url', e);
 
   formSubmit = (e) => {
     e.preventDefault();
@@ -73,7 +73,7 @@ class Form extends React.Component {
       <div className="form">
         <form onSubmit={this.formSubmit}>
           <div className="form-group">
-            <label for="exampleInputEmail1"></label>
+            <label htmlFor="exampleInputEmail1"></label>
             <input 
               type="text" 
               className="form-discription" 
@@ -83,7 +83,7 @@ class Form extends React.Component {
               value={newListing.address}
               onChange={this.discriptionChange} 
             />
-            <label className="ml-3"for="exampleInputEmail1"></label>
+            <label className="ml-3" htmlFor="exampleInputEmail1"></label>
             <input 
               type="text" 
               className="form-url" 
@@ -97,22 +97,22 @@ class Form extends React.Component {
         <div className="crudWrap">
           <div className="custom-radio">
             <input type="radio" id="radio1" name="radioDisabled" class="custom-Radio-Tutorials" />
-            <label className="tutorialsLabel" for="radioBlogs">Tutorials</label>
+            <label className="tutorialsLabel" htmlFor="radioBlogs">Tutorials</label>
           </div>
 
           <div className="custom-control custom-radio">
             <input type="radio" id="radio2" name="radioDisabled" id="radioBlogs" class="custom-Radio-Blogs" />
-            <label className="blogsLabel" for="radioBlogs">Blogs</label>
+            <label className="blogsLabel" htmlFor="radioBlogs">Blogs</label>
           </div>
 
           <div className="custom-control custom-radio">
             <input type="radio" id="radio3" name="radioDisabled" id="radioPodcast" class="custom-Radio-Podcast" />
-            <label className="podcastLabel" for="radioPodcast">Podcast</label>
+            <label className="podcastLabel" htmlFor="radioPodcast">Podcast</label>
           </div>
 
           <div className="custom-control custom-radio">
             <input type="radio" id="radio4" name="radioDisabled" id="radioResourc" class="custom-Radio-Resourc" />
-            <label className="resurcLabel" for="radioResourc">Resources</label>
+            <label className="resurcLabel" htmlFor="radioResourc">Resources</label>
           </div>
         </div>
         <div>
