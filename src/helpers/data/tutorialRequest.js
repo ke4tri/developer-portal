@@ -22,11 +22,16 @@ const getRequest = () => new Promise((resolve, reject) => {
 // all of the below are just for that of tutorials and nothing else
 const deleteTutorial = tutorialId => axios.delete(`${firebaseUrl}/tutorials/${tutorialId}.json`);
 
+const postRequest = tutorial => axios.post(`${firebaseUrl}/tutorials.json`, tutorial);
+
 const getSingleTutorial = tutorialId => axios.get(`${firebaseUrl}/tutorials/${tutorialId}.json`);
 
+const putRequest = (tutorialId, tutorial) => axios.put(`${firebaseUrl}/tutorials/${tutorialId}.json`, tutorial);
 
 export default {
   getRequest,
   deleteTutorial,
   getSingleTutorial,
+  putRequest,
+  postRequest,
 };

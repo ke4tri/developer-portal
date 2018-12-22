@@ -22,8 +22,6 @@ class TutorialItems extends React.Component {
     deleteSingleTutorial(tutorial.id);
   }
 
-  passListingToEdit = tutorialId => this.setState({ isEditing: true, editId: tutorialId });
-
   render() {
     const { tutorial } = this.props;
     const uid = authRequests.getCurrentUid();

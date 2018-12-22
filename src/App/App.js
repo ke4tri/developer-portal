@@ -23,6 +23,7 @@ import Resources from '../components/Window/Resourc/resources';
 import Podcasts from '../components/Window/Podcast/podcast';
 import connection from '../helpers/data/connection';
 import getRequest2 from '../helpers/data/tutorialRequest';
+// import tutorialRequests from '../helpers/data/tutorialRequest';
 import Form from '../components/Form/Form';
 import './App.scss';
 import authRequests from '../helpers/data/authRequests';
@@ -31,6 +32,15 @@ class App extends Component {
   state = {
     authed: false,
     tutorials: [],
+    isEditing: false,
+    editId: '-1',
+    selectedListingId: -1,
+  }
+
+  listingSelectEvent = (id) => {
+    this.setState({
+      selectedListingId: id,
+    });
   }
 
   constructor(props) {
@@ -91,26 +101,60 @@ class App extends Component {
       .catch(err => console.error('error with delete single', err));
   }
 
+  formSubmitEvent = (newListing) => {
+    const { isEditing, editId } = this.state;
+    if (isEditing) {
+      getRequest2.putRequest(editId, newListing)
+        .then(() => {
+          getRequest2.getRequest()
+            .then((tutorials) => {
+              this.setState({ tutorials, isEditing: false, editId: '-1' });
+            });
+        })
+        .catch(err => console.error('error with listing post', err));
+    } else {
+      getRequest2.postRequest(newListing)
+        .then(() => {
+          getRequest2.getRequest()
+            .then((tutorials) => {
+              this.setState({ tutorials });
+            });
+        })
+        .catch(err => console.error('error with listing post', err));
+    }
+  }
+
+  passListingToEdit = tutorialId => this.setState({ isEditing: true, editId: tutorialId });
+
 
   render() {
+    const {
+      authed,
+      isEditing,
+      editId,
+      // selectedListingId,
+    } = this.state;
+
+    // const selectedListing = listings.find(listing => listing.id === selectedListingId) || { nope: 'nope' };
+
     const logoutClickEvent = () => {
       authRequests.logoutUser();
       this.setState({ authed: false });
     };
-    if (!this.state.authed) {
+    if (!authed) {
       return (
         <div className="App">
-        <MyNavBar isAuthed={this.state.authed} logoutClickEvent={logoutClickEvent}/>
+        <MyNavBar isAuthed={authed} logoutClickEvent={logoutClickEvent}/>
         <Auth isAuthenticated={this.isAuthenticated}/>
         </div>
       );
     }
     return (
       <div className="App">
-      <MyNavBar isAuthed={this.state.authed} logoutClickEvent={logoutClickEvent}/>
+      <MyNavBar isAuthed={authed} logoutClickEvent={logoutClickEvent}/>
       <div><TutorialsCrud /></div>
       <div className="formPrint">
-        <Form />
+        <Form onSubmit={this.formSubmitEvent} isEditing={isEditing} editId={editId}/>
       </div>
       <div className="tabby">
       <Nav tabs>
