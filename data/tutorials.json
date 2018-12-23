@@ -25,5 +25,71 @@
       "url": "https://www.youtube.com/watch?v=pgAvVxowaYU",
       "uid": "Q0XwOXkDM8M0RIrnjpW1egE99cg2"
     }
+  },
+  "blogs": {
+    "blog0": {
+      "name": "CodeBetter",
+      "url": "https://http://codebetter.com/",
+      "uid": "Q0XwOXkDM8M0RIrnjpW1egE99cg2"
+    },
+    "blog1": {
+      "name": "A List Apart",
+      "url": "https://alistapart.com/",
+      "uid": "Q0XwOXkDM8M0RIrnjpW1egE99cg2"
+    },
+    "blog2": {
+      "name": "PhraseApp Blog",
+      "url": "https://phraseapp.com/blog/",
+      "uid": "Q0XwOXkDM8M0RIrnjpW1egE99cg2"
+    }
+  },
+  "resources": {
+    "resource0": {
+      "name": "Firebase",
+      "discription": "Setup database and host your project",
+      "url": "https://console.firebase.google.com",
+      "uid": "Q0XwOXkDM8M0RIrnjpW1egE99cg2"
+    },
+    "resource1": {
+      "name": "Font Awesome",
+      "discription": "Amazine fonts and icons for project",
+      "url": "https://fontawesome.com",
+      "uid": "Q0XwOXkDM8M0RIrnjpW1egE99cg2"
+    },
+    "resource2": {
+      "name": "Class Tracker E8",
+      "discription": "Cohort E8 class tracker",
+      "url": "https://classtracker.zoeames.com/students",
+      "uid": "Q0XwOXkDM8M0RIrnjpW1egE99cg2"
+    },
+    "resource3": {
+      "name": "Bootstrap",
+      "discription": "Styling resources",
+      "url": "https://getbootstrap.com/docs/4.1/layout/overview/",
+      "uid": "Q0XwOXkDM8M0RIrnjpW1egE99cg2"
+    },
+    "resource4": {
+      "name": "Reactstrap",
+      "discription": "ReactJS styling based off BS",
+      "url": "https://reactstrap.github.io/",
+      "uid": "Q0XwOXkDM8M0RIrnjpW1egE99cg2"
+    }
+  },
+  "podcasts": {
+    "podcast0": {
+      "name": "The Vanilla JS Podcast",
+      "url": "https://vanillajspodcast.com",
+      "uid": "Q0XwOXkDM8M0RIrnjpW1egE99cg2"
+    },
+    "podcast1": {
+      "name": "5 minutes of React",
+      "url": "https://5minreact.audio/",
+      "uid": "Q0XwOXkDM8M0RIrnjpW1egE99cg2"
+    },
+    "podcast2": {
+      "name": "JavaScript Air",
+      "url": "https://javascriptair.com",
+      "uid": "Q0XwOXkDM8M0RIrnjpW1egE99cg2"
+    }
   }
 }

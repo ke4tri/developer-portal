@@ -96,22 +96,22 @@ class Form extends React.Component {
           </div>
         <div className="crudWrap">
           <div className="custom-radio">
-            <input type="radio" id="radio1" name="radioDisabled" class="custom-Radio-Tutorials" />
+            <input type="radio" id="radio1" name="radioDisabled" className="custom-Radio-Tutorials" />
             <label className="tutorialsLabel" htmlFor="radioBlogs">Tutorials</label>
           </div>
 
           <div className="custom-control custom-radio">
-            <input type="radio" id="radio2" name="radioDisabled" id="radioBlogs" class="custom-Radio-Blogs" />
+            <input type="radio" id="radio2" name="radioDisabled" id="radioBlogs" className="custom-Radio-Blogs" />
             <label className="blogsLabel" htmlFor="radioBlogs">Blogs</label>
           </div>
 
           <div className="custom-control custom-radio">
-            <input type="radio" id="radio3" name="radioDisabled" id="radioPodcast" class="custom-Radio-Podcast" />
+            <input type="radio" id="radio3" name="radioDisabled" id="radioPodcast" className="custom-Radio-Podcast" />
             <label className="podcastLabel" htmlFor="radioPodcast">Podcast</label>
           </div>
 
           <div className="custom-control custom-radio">
-            <input type="radio" id="radio4" name="radioDisabled" id="radioResourc" class="custom-Radio-Resourc" />
+            <input type="radio" id="radio4" name="radioDisabled" id="radioResourc" className="custom-Radio-Resourc" />
             <label className="resurcLabel" htmlFor="radioResourc">Resources</label>
           </div>
         </div>
