@@ -35,12 +35,22 @@
     "blog1": {
       "name": "A List Apart",
       "url": "https://alistapart.com/",
-      "uid": "Q0XwOXkDM8M0RIrnjpW1egE99cg2"
+      "uid": "oPTXvIVvkNWgmrjHbMX3Cmthq4H3"
     },
     "blog2": {
       "name": "PhraseApp Blog",
       "url": "https://phraseapp.com/blog/",
       "uid": "Q0XwOXkDM8M0RIrnjpW1egE99cg2"
+    },
+    "blog3": {
+      "name": "A List Apart3",
+      "url": "https://alistapart.com/",
+      "uid": "oPTXvIVvkNWgmrjHbMX3Cmthq4H3"
+    },
+    "blog4": {
+      "name": "A List Apart4",
+      "url": "https://alistapart.com/",
+      "uid": "oPTXvIVvkNWgmrjHbMX3Cmthq4H3"
     }
   },
   "resources": {
@@ -54,7 +64,7 @@
       "name": "Font Awesome",
       "discription": "Amazine fonts and icons for project",
       "url": "https://fontawesome.com",
-      "uid": "Q0XwOXkDM8M0RIrnjpW1egE99cg2"
+      "uid": "oPTXvIVvkNWgmrjHbMX3Cmthq4H3"
     },
     "resource2": {
       "name": "Class Tracker E8",
@@ -84,7 +94,7 @@
     "podcast1": {
       "name": "5 minutes of React",
       "url": "https://5minreact.audio/",
-      "uid": "Q0XwOXkDM8M0RIrnjpW1egE99cg2"
+      "uid": "oPTXvIVvkNWgmrjHbMX3Cmthq4H3"
     },
     "podcast2": {
       "name": "JavaScript Air",
