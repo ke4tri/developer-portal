@@ -8,13 +8,13 @@ import authRequests from '../../helpers/data/authRequests';
 class BlogItems extends React.Component {
   static propTypes = {
     blog: blogShapes,
-    deleteSingleListingBlog: PropTypes.func,
+    deleteSingleBlog: PropTypes.func,
   }
 
   editEvent = (e) => {
     e.preventDefault();
-    const { passListingToEditBlog, blog } = this.props;
-    passListingToEditBlog(blog.id);
+    const { passListingToEdit, blog } = this.props;
+    passListingToEdit(blog.id);
   }
 
   deleteEvent = (e) => {

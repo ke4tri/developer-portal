@@ -155,7 +155,40 @@ class App extends Component {
             this.setState({ tutorials });
           });
       })
-      .catch(err => console.error('error with delete single', err));
+      .catch(err => console.error('error with delete single tutorial', err));
+  }
+
+  deleteTwo = (blogId) => {
+    getRequest3.deleteBlog(blogId)
+      .then(() => {
+        getRequest3.getRequest()
+          .then((blogs) => {
+            this.setState({ blogs });
+          });
+      })
+      .catch(err => console.error('error with delete single blog', err));
+  }
+
+  deleteThree = (resourcesId) => {
+    getRequest4.deleteResources(resourcesId)
+      .then(() => {
+        getRequest4.getRequest()
+          .then((resources) => {
+            this.setState({ resources });
+          });
+      })
+      .catch(err => console.error('error with delete single blog', err));
+  }
+
+  deleteFour = (podcastId) => {
+    getRequest5.deletePodcast(podcastId)
+      .then(() => {
+        getRequest5.getRequest()
+          .then((podcasts) => {
+            this.setState({ podcasts });
+          });
+      })
+      .catch(err => console.error('error with delete single blog', err));
   }
 
   formSubmitEvent = (newListing) => {
@@ -259,19 +292,19 @@ class App extends Component {
         <TabPane tabId="2">
           <Blogs
           blogs={this.state.blogs}
-          deleteSingleBlog={this.deleteOne}
+          deleteSingleBlog={this.deleteTwo}
           />
         </TabPane>
         <TabPane tabId="3">
           <Resources
           resources={this.state.resources}
-          deleteSingleBlog={this.deleteOne}
+          deleteSingleResource={this.deleteThree}
           />
         </TabPane>
         <TabPane tabId="4">
           <Podcasts
           podcasts={this.state.podcasts}
-          deleteSingleBlog={this.deleteOne}
+          deleteSinglePodcast={this.deleteFour}
           />
         </TabPane>
       </TabContent>

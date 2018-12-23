@@ -7,7 +7,7 @@ import './resources.scss';
 class Resources extends React.Component {
   static propTypes = {
     tutorials: PropTypes.arrayOf(resourceShapes),
-    deleteSingleTutorial: PropTypes.func,
+    deleteSingleResource: PropTypes.func,
     passListingToEdit: PropTypes.func,
   }
 

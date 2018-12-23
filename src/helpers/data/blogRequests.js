@@ -22,9 +22,9 @@ const getRequest = () => new Promise((resolve, reject) => {
 // all of the below are just for that of tutorials and nothing else
 const deleteBlog = blogId => axios.delete(`${firebaseUrl}/blogs/${blogId}.json`);
 
-const postRequestBlog = blog => axios.post(`${firebaseUrl}/blog.json`, blog);
+const postRequestBlog = blog => axios.post(`${firebaseUrl}/blogs.json`, blog);
 
-const getSingleBlog = blogId => axios.get(`${firebaseUrl}/blog/${blogId}.json`);
+const getSingleBlog = blogId => axios.get(`${firebaseUrl}/blogs/${blogId}.json`);
 
 const putRequestBlog = (blogId, blog) => axios.put(`${firebaseUrl}/blogs/${blogId}.json`, blog);
 
