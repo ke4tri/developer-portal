@@ -7,7 +7,7 @@ import './podcast.scss';
 class Podcasts extends React.Component {
   static propTypes = {
     tutorials: PropTypes.arrayOf(podcastShapes),
-    deleteSingleTutorial: PropTypes.func,
+    deleteSinglePodcast: PropTypes.func,
     passListingToEdit: PropTypes.func,
   }
 

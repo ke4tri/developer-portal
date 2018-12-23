@@ -169,6 +169,28 @@ class App extends Component {
       .catch(err => console.error('error with delete single blog', err));
   }
 
+  deleteThree = (resourcesId) => {
+    getRequest4.deleteResources(resourcesId)
+      .then(() => {
+        getRequest4.getRequest()
+          .then((resources) => {
+            this.setState({ resources });
+          });
+      })
+      .catch(err => console.error('error with delete single blog', err));
+  }
+
+  deleteFour = (podcastId) => {
+    getRequest5.deletePodcast(podcastId)
+      .then(() => {
+        getRequest5.getRequest()
+          .then((podcasts) => {
+            this.setState({ podcasts });
+          });
+      })
+      .catch(err => console.error('error with delete single blog', err));
+  }
+
   formSubmitEvent = (newListing) => {
     const { isEditing, editId } = this.state;
     if (isEditing) {
@@ -276,13 +298,13 @@ class App extends Component {
         <TabPane tabId="3">
           <Resources
           resources={this.state.resources}
-          deleteSingleBlog={this.deleteOne}
+          deleteSingleResource={this.deleteThree}
           />
         </TabPane>
         <TabPane tabId="4">
           <Podcasts
           podcasts={this.state.podcasts}
-          deleteSingleBlog={this.deleteOne}
+          deleteSinglePodcast={this.deleteFour}
           />
         </TabPane>
       </TabContent>

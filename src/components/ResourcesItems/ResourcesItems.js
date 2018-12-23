@@ -8,13 +8,13 @@ import authRequests from '../../helpers/data/authRequests';
 class ResourcesItems extends React.Component {
   static propTypes = {
     resource: resourceShapes,
-    deleteSingleListingResource: PropTypes.func,
+    deleteSingleResource: PropTypes.func,
   }
 
   editEvent = (e) => {
     e.preventDefault();
-    const { passListingToEditResource, resource } = this.props;
-    passListingToEditResource(resource.id);
+    const { passListingToEdit, resource } = this.props;
+    passListingToEdit(resource.id);
   }
 
   deleteEvent = (e) => {
