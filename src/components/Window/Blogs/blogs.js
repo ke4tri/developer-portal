@@ -2,13 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import tutorialShapes from '../../../helpers/propz/tutorialShapes';
 import BlogItems from '../../BlogItems/BlogItems';
-
 import './blogs.scss';
 
 class Blogs extends React.Component {
   static propTypes = {
     tutorials: PropTypes.arrayOf(tutorialShapes),
-    deleteSingleTutorial: PropTypes.func,
+    deleteSingleBlog: PropTypes.func,
     passListingToEdit: PropTypes.func,
   }
 
@@ -22,7 +21,7 @@ class Blogs extends React.Component {
       <BlogItems
         blog={blog}
         key={blog.id}
-        deleteSingleTutorial={deleteSingleBlog}
+        deleteSingleBlog={deleteSingleBlog}
         passListingToEdit={passListingToEdit}
         />
     ));

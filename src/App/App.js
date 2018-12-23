@@ -155,7 +155,18 @@ class App extends Component {
             this.setState({ tutorials });
           });
       })
-      .catch(err => console.error('error with delete single', err));
+      .catch(err => console.error('error with delete single tutorial', err));
+  }
+
+  deleteTwo = (blogId) => {
+    getRequest3.deleteBlog(blogId)
+      .then(() => {
+        getRequest3.getRequest()
+          .then((blogs) => {
+            this.setState({ blogs });
+          });
+      })
+      .catch(err => console.error('error with delete single blog', err));
   }
 
   formSubmitEvent = (newListing) => {
@@ -259,7 +270,7 @@ class App extends Component {
         <TabPane tabId="2">
           <Blogs
           blogs={this.state.blogs}
-          deleteSingleBlog={this.deleteOne}
+          deleteSingleBlog={this.deleteTwo}
           />
         </TabPane>
         <TabPane tabId="3">
