@@ -24,6 +24,7 @@ import Podcasts from '../components/Window/Podcast/podcast';
 import connection from '../helpers/data/connection';
 import getRequest2 from '../helpers/data/tutorialRequest';
 import getRequest3 from '../helpers/data/blogRequests';
+import getRequest4 from '../helpers/data/resourcesRequest';
 // import tutorialRequests from '../helpers/data/tutorialRequest';
 import Form from '../components/Form/Form';
 import './App.scss';
@@ -34,6 +35,7 @@ class App extends Component {
     authed: false,
     tutorials: [],
     blogs: [],
+    resources: [],
     isEditing: false,
     editId: '-1',
     selectedListingId: -1,
@@ -99,8 +101,24 @@ class App extends Component {
         });
       }
     });
+    getRequest4.getRequest()
+      .then((resources) => {
+        this.setState({ resources });
+      })
+      .catch(err => console.error('err with blogs GET', err));
+
+    this.removeListener = firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.setState({
+          authed: true,
+        });
+      } else {
+        this.setState({
+          authed: false,
+        });
+      }
+    });
   }
-  
 
   componentWillUnmount() {
     this.removeListener();
@@ -155,6 +173,7 @@ class App extends Component {
       // selectedListingId,
     } = this.state;
 
+    // eslint-disable-next-line max-len
     // const selectedListing = listings.find(listing => listing.id === selectedListingId) || { nope: 'nope' };
 
     const logoutClickEvent = () => {
@@ -225,7 +244,10 @@ class App extends Component {
           />
         </TabPane>
         <TabPane tabId="3">
-          <Resources />
+          <Resources
+          resources={this.state.resources}
+          deleteSingleBlog={this.deleteOne}
+          />
         </TabPane>
         <TabPane tabId="4">
           <Podcasts />
