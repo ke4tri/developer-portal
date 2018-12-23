@@ -23,6 +23,7 @@ import Resources from '../components/Window/Resourc/resources';
 import Podcasts from '../components/Window/Podcast/podcast';
 import connection from '../helpers/data/connection';
 import getRequest2 from '../helpers/data/tutorialRequest';
+import getRequest3 from '../helpers/data/blogRequests';
 // import tutorialRequests from '../helpers/data/tutorialRequest';
 import Form from '../components/Form/Form';
 import './App.scss';
@@ -32,6 +33,7 @@ class App extends Component {
   state = {
     authed: false,
     tutorials: [],
+    blogs: [],
     isEditing: false,
     editId: '-1',
     selectedListingId: -1,
@@ -80,7 +82,25 @@ class App extends Component {
         });
       }
     });
+    getRequest3.getRequest()
+      .then((blogs) => {
+        this.setState({ blogs });
+      })
+      .catch(err => console.error('err with blogs GET', err));
+
+    this.removeListener = firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.setState({
+          authed: true,
+        });
+      } else {
+        this.setState({
+          authed: false,
+        });
+      }
+    });
   }
+  
 
   componentWillUnmount() {
     this.removeListener();
@@ -199,7 +219,10 @@ class App extends Component {
               />
         </TabPane>
         <TabPane tabId="2">
-          <Blogs />
+          <Blogs
+          blogs={this.state.blogs}
+          deleteSingleBlog={this.deleteOne}
+          />
         </TabPane>
         <TabPane tabId="3">
           <Resources />

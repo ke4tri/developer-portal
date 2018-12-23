@@ -1,34 +1,34 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import tutorialShapes from '../../helpers/propz/tutorialShapes';
-import './TutorialItems.scss';
+// import tutorialShapes from '../../helpers/propz/tutorialShapes';
+import blogShapes from '../../helpers/propz/blogShapes';
+import './BlogItems.scss';
 import authRequests from '../../helpers/data/authRequests';
 
-class TutorialItems extends React.Component {
+class BlogItems extends React.Component {
   static propTypes = {
-    tutorial: tutorialShapes,
-    deleteSingleTutorial: PropTypes.func,
-    passListingToEdit: PropTypes.func,
+    blog: blogShapes,
+    deleteSingleListingBlog: PropTypes.func,
   }
 
   editEvent = (e) => {
     e.preventDefault();
-    const { passListingToEdit, listing } = this.props;
-    passListingToEdit(listing.id);
+    const { passListingToEditBlog, blog } = this.props;
+    passListingToEditBlog(blog.id);
   }
 
   deleteEvent = (e) => {
     e.preventDefault();
-    const { deleteSingleTutorial, tutorial } = this.props;
-    deleteSingleTutorial(tutorial.id);
+    const { deleteSingleBlog, blog } = this.props;
+    deleteSingleBlog(blog.id);
   }
 
   render() {
-    const { tutorial } = this.props;
+    const { blog } = this.props;
     const uid = authRequests.getCurrentUid();
 
     const makeButtons = () => {
-      if (tutorial.uid === uid) {
+      if (blog.uid === uid) {
         return (
         <div>
           <span className="col">
@@ -37,7 +37,7 @@ class TutorialItems extends React.Component {
           </button>
           </span>
           <span className="col">
-          <input type="radio" id="radio2" name="radioDisabled" id="radioBlogs" class="custom-Radio-Blogs" />
+          <input type="radio" id="radio2" name="radioDisabled" id="radioBlogs" className="custom-Radio-Blogs" />
           <label className="blogsLabel" for="radioBlogs">DONE</label>
           </span>
         </div>
@@ -47,13 +47,13 @@ class TutorialItems extends React.Component {
     };
     return (
       <li className="tutorial-item text-center">
-        <span className="col">{tutorial.name}</span>
+        <span className="col">{blog.name}</span>
         {/* <span className="col-3">{tutorial.uid}</span> */}
-        <span className="col"><a href={tutorial.url} target="_blank">Link</a></span>
+        <span className="col"><a href={blog.url} target="_blank">Link</a></span>
         {makeButtons()}
       </li>
     );
   }
 }
 
-export default TutorialItems;
+export default BlogItems;
