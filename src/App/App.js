@@ -25,6 +25,7 @@ import connection from '../helpers/data/connection';
 import getRequest2 from '../helpers/data/tutorialRequest';
 import getRequest3 from '../helpers/data/blogRequests';
 import getRequest4 from '../helpers/data/resourcesRequest';
+import getRequest5 from '../helpers/data/podcastRequest';
 // import tutorialRequests from '../helpers/data/tutorialRequest';
 import Form from '../components/Form/Form';
 import './App.scss';
@@ -36,6 +37,7 @@ class App extends Component {
     tutorials: [],
     blogs: [],
     resources: [],
+    podcasts: [],
     isEditing: false,
     editId: '-1',
     selectedListingId: -1,
@@ -105,7 +107,24 @@ class App extends Component {
       .then((resources) => {
         this.setState({ resources });
       })
-      .catch(err => console.error('err with blogs GET', err));
+      .catch(err => console.error('err with resources GET', err));
+
+    this.removeListener = firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.setState({
+          authed: true,
+        });
+      } else {
+        this.setState({
+          authed: false,
+        });
+      }
+    });
+    getRequest5.getRequest()
+      .then((podcasts) => {
+        this.setState({ podcasts });
+      })
+      .catch(err => console.error('err with podcast GET', err));
 
     this.removeListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
@@ -250,7 +269,10 @@ class App extends Component {
           />
         </TabPane>
         <TabPane tabId="4">
-          <Podcasts />
+          <Podcasts
+          podcasts={this.state.podcasts}
+          deleteSingleBlog={this.deleteOne}
+          />
         </TabPane>
       </TabContent>
     </div>
