@@ -30,6 +30,7 @@ class Form extends React.Component {
     this.setState({ newListing: tempListing });
   }
 
+  // Use if not a string below
   // formFieldNumberState = (name, e) => {
   //   const tempListing = { ...this.state.newListing };
   //   tempListing[name] = e.target.value * 1;
