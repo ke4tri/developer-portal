@@ -27,7 +27,7 @@ class Podcasts extends React.Component {
     ));
 
     return (
-      <div className="podcast">
+      <div className="podcast col">
         <h2>Podcast</h2>
         <ul>
           {podcastItemComponents}
