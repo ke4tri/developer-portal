@@ -21,7 +21,7 @@ class Form extends React.Component {
 
   state = {
     newListing: defaultListing,
-    selectedOption: 'option1',
+    selectedOption: 'blogs',
   }
 
   formFieldStringState = (name, e) => {
@@ -29,6 +29,12 @@ class Form extends React.Component {
     const tempListing = { ...this.state.newListing };
     tempListing[name] = e.target.value;
     this.setState({ newListing: tempListing });
+  }
+
+  handleOptionChange = (changeEvent) => {
+    this.setState({
+      selectedOption: changeEvent.target.value,
+    });
   }
 
   // Use if not a string below
@@ -60,12 +66,6 @@ class Form extends React.Component {
         })
         .catch(err => console.error('error with getSingleTutorial', err));
     }
-  }
-
-  handleOptionChange(changeEvent) {
-    this.setState({
-      selectedOption: changeEvent.target.value,
-    });
   }
 
   render() {
@@ -104,32 +104,32 @@ class Form extends React.Component {
           </div>
           <div className="radio">
       <label>
-        <input type="radio" value="option1"
-                      checked={this.state.selectedOption === 'option1'}
+        <input type="radio" value="tutorials"
+                      checked={this.state.selectedOption === 'tutorials'}
                       onChange={this.handleOptionChange} />
         Tutorials
       </label>
     </div>
     <div className="radio">
       <label>
-        <input type="radio" value="option2"
-                      checked={this.state.selectedOption === 'option2'}
+        <input type="radio" value="blogs"
+                      checked={this.state.selectedOption === 'blogs'}
                       onChange={this.handleOptionChange} />
         Blogs
       </label>
     </div>
     <div className="radio">
       <label>
-        <input type="radio" value="option3"
-                      checked={this.state.selectedOption === 'option3'}
+        <input type="radio" value="resources"
+                      checked={this.state.selectedOption === 'resources'}
                       onChange={this.handleOptionChange} />
         Resources
       </label>
     </div>
     <div className="radio">
       <label>
-        <input type="radio" value="option4"
-                      checked={this.state.selectedOption === 'option4'}
+        <input type="radio" value="podcast"
+                      checked={this.state.selectedOption === 'podcast'}
                       onChange={this.handleOptionChange} />
         Podcast
       </label>
