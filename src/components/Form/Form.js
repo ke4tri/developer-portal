@@ -3,6 +3,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import authRequests from '../../helpers/data/authRequests';
 import getSingleTutorial2 from '../../helpers/data/tutorialRequest';
+// import getSingleBlog2 from '../../helpers/data/blogRequests';
+// import getSinglePodcast2 from '../../helpers/data/podcastRequest';
+// import getSingleResources from '../../helpers/data/resourcesRequest';
 import './Form.scss';
 
 const defaultListing = {
@@ -21,7 +24,7 @@ class Form extends React.Component {
 
   state = {
     newListing: defaultListing,
-    selectedOption: 'blogs',
+    selectedOption: 'tutorial',
   }
 
   formFieldStringState = (name, e) => {
@@ -36,13 +39,7 @@ class Form extends React.Component {
       selectedOption: changeEvent.target.value,
     });
   }
-
-  // Use if not a string below
-  // formFieldNumberState = (name, e) => {
-  //   const tempListing = { ...this.state.newListing };
-  //   tempListing[name] = e.target.value * 1;
-  //   this.setState({ newListing: tempListing });
-  // }
+  // These two below are what gets the messages in the input fields
 
   discriptionChange = e => this.formFieldStringState('name', e);
 
@@ -52,31 +49,14 @@ class Form extends React.Component {
     e.preventDefault();
     const { onSubmit } = this.props;
     const myForm = { ...this.state.newListing };
+    const myBullet = this.state.selectedOption;
     myForm.uid = authRequests.getCurrentUid();
-    onSubmit(myForm);
+    onSubmit(myForm, myBullet);
     this.setState({ newListing: defaultListing });
-  }
-
-  componentDidUpdate(prevProps) {
-    const { isEditing, editId } = this.props;
-    if (prevProps !== this.props && isEditing) {
-      getSingleTutorial2.getSingleTutorial(editId)
-        .then((listing) => {
-          this.setState({ newListing: listing.data });
-        })
-        .catch(err => console.error('error with getSingleTutorial', err));
-    }
   }
 
   render() {
     const { newListing } = this.state;
-    const { isEditing } = this.props;
-    const title = () => {
-      if (isEditing) {
-        return <h2>Edit Listing:</h2>;
-      }
-      return <h2>Add New Listing:</h2>;
-    };
     return (
       <div className="form">
         <form onSubmit={this.formSubmit}>
@@ -112,16 +92,16 @@ class Form extends React.Component {
     </div>
     <div className="radio">
       <label>
-        <input type="radio" value="blogs"
-                      checked={this.state.selectedOption === 'blogs'}
+        <input type="radio" value="blog"
+                      checked={this.state.selectedOption === 'blog'}
                       onChange={this.handleOptionChange} />
         Blogs
       </label>
     </div>
     <div className="radio">
       <label>
-        <input type="radio" value="resources"
-                      checked={this.state.selectedOption === 'resources'}
+        <input type="radio" value="resource"
+                      checked={this.state.selectedOption === 'resource'}
                       onChange={this.handleOptionChange} />
         Resources
       </label>
@@ -134,27 +114,6 @@ class Form extends React.Component {
         Podcast
       </label>
     </div>
-        {/* <div className="crudWrap">
-          <div className="custom-radio">
-            <input type="radio" id="radio1" name="radioDisabled" className="custom-Radio-Tutorials" checked={true} />
-            <label className="tutorialsLabel" htmlFor="radioBlogs">Tutorials</label>
-          </div>
-
-          <div className="custom-control custom-radio">
-            <input type="radio" id="radio2" name="radioDisabled" id="radioBlogs" className="custom-Radio-Blogs" />
-            <label className="blogsLabel" htmlFor="radioBlogs">Blogs</label>
-          </div>
-
-          <div className="custom-control custom-radio">
-            <input type="radio" id="radio3" name="radioDisabled" id="radioPodcast" className="custom-Radio-Podcast" />
-            <label className="podcastLabel" htmlFor="radioPodcast">Podcast</label>
-          </div>
-
-          <div className="custom-control custom-radio">
-            <input type="radio" id="radio4" name="radioDisabled" id="radioResourc" className="custom-Radio-Resourc" />
-            <label className="resurcLabel" htmlFor="radioResourc">Resources</label>
-          </div>
-        </div> */}
         <div>
           <button className="addButton btn btn-danger ml-4" type="submit">+</button>
         </div>

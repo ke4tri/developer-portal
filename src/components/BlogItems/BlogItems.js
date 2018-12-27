@@ -38,7 +38,7 @@ class BlogItems extends React.Component {
           </span>
           <span className="col">
           <input type="radio" id="radio2" name="radioDisabled" id="radioBlogs" className="custom-Radio-Blogs" />
-          <label className="blogsLabel" for="radioBlogs">DONE</label>
+          <label className="blogsLabel" htmlFor="radioBlogs">DONE</label>
           </span>
         </div>
         );

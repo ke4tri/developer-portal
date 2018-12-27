@@ -4,7 +4,7 @@ import tutorialShapes from '../../../helpers/propz/tutorialShapes';
 import TutorialItems from '../../TutorialItems/TutorialItems';
 import './tutorials.scss';
 
-class Tutorials extends React.Component {
+class Tutorial extends React.Component {
   static propTypes = {
     tutorials: PropTypes.arrayOf(tutorialShapes),
     deleteSingleTutorial: PropTypes.func,
@@ -36,4 +36,4 @@ class Tutorials extends React.Component {
   }
 }
 
-export default Tutorials;
+export default Tutorial;

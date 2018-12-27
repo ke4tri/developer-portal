@@ -8,8 +8,6 @@ import {
   Nav,
   NavItem,
   NavLink,
-  Row,
-  Col,
 } from 'reactstrap';
 import classnames from 'classnames';
 import Auth from '../components/Auth/auth';
@@ -17,15 +15,15 @@ import MyNavBar from '../components/MyNavbar/MyNavBar';
 // import Profile from '../components/Profile/profile';
 // import Commits from '../components/CommitsData/commitsData';
 import TutorialsCrud from '../components/TutorialsCrud/tutorialsCrud';
-import Tutorials from '../components/Window/Tutorials/tutorials';
+import Tutorial from '../components/Window/Tutorials/tutorials';
 import Blogs from '../components/Window/Blogs/blogs';
 import Resources from '../components/Window/Resourc/resources';
 import Podcasts from '../components/Window/Podcast/podcast';
 import connection from '../helpers/data/connection';
-import getRequest2 from '../helpers/data/tutorialRequest';
-import getRequest3 from '../helpers/data/blogRequests';
-import getRequest4 from '../helpers/data/resourcesRequest';
-import getRequest5 from '../helpers/data/podcastRequest';
+import tutorials from '../helpers/data/tutorialRequest';
+import blog from '../helpers/data/blogRequests';
+import resource from '../helpers/data/resourcesRequest';
+import podcast from '../helpers/data/podcastRequest';
 // import tutorialRequests from '../helpers/data/tutorialRequest';
 import Form from '../components/Form/Form';
 import './App.scss';
@@ -69,7 +67,7 @@ class App extends Component {
   componentDidMount() {
     connection();
 
-    getRequest2.getRequest()
+    tutorials.getRequest()
       .then((tutorials) => {
         this.setState({ tutorials });
       })
@@ -86,7 +84,7 @@ class App extends Component {
         });
       }
     });
-    getRequest3.getRequest()
+    blog.getRequest()
       .then((blogs) => {
         this.setState({ blogs });
       })
@@ -103,7 +101,7 @@ class App extends Component {
         });
       }
     });
-    getRequest4.getRequest()
+    resource.getRequest()
       .then((resources) => {
         this.setState({ resources });
       })
@@ -120,7 +118,7 @@ class App extends Component {
         });
       }
     });
-    getRequest5.getRequest()
+    podcast.getRequest()
       .then((podcasts) => {
         this.setState({ podcasts });
       })
@@ -148,9 +146,9 @@ class App extends Component {
   }
 
   deleteOne = (tutorialId) => {
-    getRequest2.deleteTutorial(tutorialId)
+    tutorials.deleteTutorial(tutorialId)
       .then(() => {
-        getRequest2.getRequest()
+        tutorials.getRequest()
           .then((tutorials) => {
             this.setState({ tutorials });
           });
@@ -159,9 +157,9 @@ class App extends Component {
   }
 
   deleteTwo = (blogId) => {
-    getRequest3.deleteBlog(blogId)
+    blog.deleteBlog(blogId)
       .then(() => {
-        getRequest3.getRequest()
+        blog.getRequest()
           .then((blogs) => {
             this.setState({ blogs });
           });
@@ -170,9 +168,9 @@ class App extends Component {
   }
 
   deleteThree = (resourcesId) => {
-    getRequest4.deleteResources(resourcesId)
+    resource.deleteResources(resourcesId)
       .then(() => {
-        getRequest4.getRequest()
+        resource.getRequest()
           .then((resources) => {
             this.setState({ resources });
           });
@@ -181,9 +179,9 @@ class App extends Component {
   }
 
   deleteFour = (podcastId) => {
-    getRequest5.deletePodcast(podcastId)
+    podcast.deletePodcast(podcastId)
       .then(() => {
-        getRequest5.getRequest()
+        podcast.getRequest()
           .then((podcasts) => {
             this.setState({ podcasts });
           });
@@ -191,28 +189,51 @@ class App extends Component {
       .catch(err => console.error('error with delete single blog', err));
   }
 
-  formSubmitEvent = (newListing) => {
-    const { isEditing, editId } = this.state;
-    if (isEditing) {
-      getRequest2.putRequest(editId, newListing)
+
+  formSubmitEvent = (newListing, tab) => {
+    if (tab === 'tutorials') {
+      tutorials.postRequest(newListing)
         .then(() => {
-          getRequest2.getRequest()
-            .then((tutorials) => {
-              this.setState({ tutorials, isEditing: false, editId: '-1' });
-            });
-        })
-        .catch(err => console.error('error with listing post', err));
-    } else {
-      getRequest2.postRequest(newListing)
-        .then(() => {
-          getRequest2.getRequest()
+          tutorials.getRequest()
+          // eslint-disable-next-line no-shadow
             .then((tutorials) => {
               this.setState({ tutorials });
             });
         })
-        .catch(err => console.error('error with listing post', err));
+        .catch(err => console.error('error with tutorial post', err));
+    } else if (tab === 'blog') {
+      blog.postRequestBlog(newListing)
+        .then(() => {
+          blog.getRequest()
+          // eslint-disable-next-line no-shadow
+            .then((blogs) => {
+              this.setState({ blogs });
+            });
+        })
+        .catch(err => console.error('error with blogs post', err));
+    } else if (tab === 'resource') {
+      resource.postRequestResources(newListing)
+        .then(() => {
+          resource.getRequest()
+          // eslint-disable-next-line no-shadow
+            .then((resources) => {
+              this.setState({ resources });
+            });
+        })
+        .catch(err => console.error('error with blogs post', err));
+    } else if (tab === 'podcast') {
+      podcast.postRequestPodcast(newListing)
+        .then(() => {
+          podcast.getRequest()
+          // eslint-disable-next-line no-shadow
+            .then((podcasts) => {
+              this.setState({ podcasts });
+            });
+        })
+        .catch(err => console.error('error with blogs post', err));
     }
   }
+
 
   passListingToEdit = tutorialId => this.setState({ isEditing: true, editId: tutorialId });
 
@@ -243,8 +264,10 @@ class App extends Component {
     return (
       <div className="App">
       <MyNavBar isAuthed={authed} logoutClickEvent={logoutClickEvent}/>
+      {/* The below TutorialCrud is the form built for the radio buttons from Form.js */}
       <div><TutorialsCrud /></div>
       <div className="formPrint">
+      {/* The below Form is just for the window display of tabs */}
         <Form onSubmit={this.formSubmitEvent} isEditing={isEditing} editId={editId}/>
       </div>
       <div className="tabby">
@@ -284,7 +307,7 @@ class App extends Component {
       </Nav>
       <TabContent activeTab={this.state.activeTab}>
         <TabPane tabId="1">
-        <Tutorials
+        <Tutorial
             tutorials={this.state.tutorials}
             deleteSingleTutorial={this.deleteOne}
               />
