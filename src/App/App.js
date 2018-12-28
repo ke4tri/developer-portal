@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import firebase from 'firebase';
 import 'firebase/auth';
-// import { Button } from 'reactstrap';
 import {
   TabContent,
   TabPane,
@@ -12,8 +11,6 @@ import {
 import classnames from 'classnames';
 import Auth from '../components/Auth/auth';
 import MyNavBar from '../components/MyNavbar/MyNavBar';
-// import Profile from '../components/Profile/profile';
-// import Commits from '../components/CommitsData/commitsData';
 import TutorialsCrud from '../components/TutorialsCrud/tutorialsCrud';
 import Tutorial from '../components/Window/Tutorials/tutorials';
 import Blogs from '../components/Window/Blogs/blogs';
@@ -25,7 +22,7 @@ import tutorials from '../helpers/data/tutorialRequest';
 import blog from '../helpers/data/blogRequests';
 import resource from '../helpers/data/resourcesRequest';
 import podcast from '../helpers/data/podcastRequest';
-// import tutorialRequests from '../helpers/data/tutorialRequest';
+import githubData from '../helpers/data/githubData';
 import Form from '../components/Form/Form';
 import './App.scss';
 import authRequests from '../helpers/data/authRequests';
@@ -36,6 +33,7 @@ class App extends Component {
     tutorials: [],
     blogs: [],
     resources: [],
+    profile: [],
     podcasts: [],
     isEditing: false,
     editId: '-1',
@@ -90,6 +88,29 @@ class App extends Component {
         this.setState({ blogs });
       })
       .catch(err => console.error('err with blogs GET', err));
+
+    // this.removeListener = firebase.auth().onAuthStateChanged((user) => {
+    //   githubData.getUserEvents(user);
+    //   githubData.getUser(user)
+    //     .then((profile) => {
+    //       this.setState({ profile });
+    //     })
+    //     .catch(err => console.error('error with github profile GET', err));
+    //   if (user) {
+    //     this.setState({
+    //       authed: true,
+    //     });
+    //   } else {
+    //     this.setState({
+    //       authed: false,
+    //     });
+    //   }
+    // });
+    // blog.getRequest()
+    //   .then((blogs) => {
+    //     this.setState({ blogs });
+    //   })
+    //   .catch(err => console.error('err with blogs GET', err));
 
     this.removeListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
