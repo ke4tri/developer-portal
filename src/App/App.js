@@ -33,11 +33,29 @@ class App extends Component {
     tutorials: [],
     blogs: [],
     resources: [],
+    githubUsername: '',
     profile: [],
     podcasts: [],
     isEditing: false,
     editId: '-1',
     selectedListingId: -1,
+  }
+
+  componentDidUpdate() {
+    if (this.state.githubUsername && this.state.profile.length === 0) {
+      githubData.getUser(this.state.githubUsername)
+        .then((profile) => {
+          this.setState({ profile });
+        })
+        .catch(err => console.error(err));
+    }
+    if (this.state.githubUsername && this.state.profile.length === 0) {
+      githubData.getUserEvents(this.state.githubUsername)
+        .then((commits) => {
+          this.setState({ commits });
+        })
+        .catch(err => console.error(err));
+    }
   }
 
   listingSelectEvent = (id) => {
@@ -72,6 +90,7 @@ class App extends Component {
       })
       .catch(err => console.error('err with tutorials GET', err));
 
+
     this.removeListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.setState({
@@ -83,15 +102,9 @@ class App extends Component {
         });
       }
     });
-    blog.getRequest()
-      .then((blogs) => {
-        this.setState({ blogs });
-      })
-      .catch(err => console.error('err with blogs GET', err));
 
     // this.removeListener = firebase.auth().onAuthStateChanged((user) => {
-    //   githubData.getUserEvents(user);
-    //   githubData.getUser(user)
+    //   getUserEvents(user)
     //     .then((profile) => {
     //       this.setState({ profile });
     //     })
@@ -106,57 +119,24 @@ class App extends Component {
     //     });
     //   }
     // });
-    // blog.getRequest()
-    //   .then((blogs) => {
-    //     this.setState({ blogs });
-    //   })
-    //   .catch(err => console.error('err with blogs GET', err));
 
-    this.removeListener = firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        this.setState({
-          authed: true,
-        });
-      } else {
-        this.setState({
-          authed: false,
-        });
-      }
-    });
+    blog.getRequest()
+      .then((blogs) => {
+        this.setState({ blogs });
+      })
+      .catch(err => console.error('err with blogs GET', err));
+
     resource.getRequest()
       .then((resources) => {
         this.setState({ resources });
       })
       .catch(err => console.error('err with resources GET', err));
 
-    this.removeListener = firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        this.setState({
-          authed: true,
-        });
-      } else {
-        this.setState({
-          authed: false,
-        });
-      }
-    });
     podcast.getRequest()
       .then((podcasts) => {
         this.setState({ podcasts });
       })
       .catch(err => console.error('err with podcast GET', err));
-
-    this.removeListener = firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        this.setState({
-          authed: true,
-        });
-      } else {
-        this.setState({
-          authed: false,
-        });
-      }
-    });
   }
 
   componentWillUnmount() {

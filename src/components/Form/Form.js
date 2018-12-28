@@ -111,7 +111,7 @@ class Form extends React.Component {
       </label>
     </div>
         <div>
-          <button className="addButton btn btn-danger ml-4" type="submit">+</button>
+          <button className="addButton btn btn-danger ml-4" type="submit">Save</button>
         </div>
         </form>
       </div>
