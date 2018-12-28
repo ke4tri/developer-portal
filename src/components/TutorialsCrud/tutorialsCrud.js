@@ -5,7 +5,7 @@ class TutorialsCrud extends React.Component {
   render() {
     return (
       <div className="tutorialsCrud">
-        <h2>Tutorials Cruding</h2>
+        <h2></h2>
       </div>
     );
   }

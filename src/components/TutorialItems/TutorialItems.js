@@ -11,6 +11,10 @@ class TutorialItems extends React.Component {
     passListingToEdit: PropTypes.func,
   }
 
+  state = {
+    selectedDone: 'false',
+  }
+
   editEvent = (e) => {
     e.preventDefault();
     const { passListingToEdit, listing } = this.props;
@@ -21,6 +25,12 @@ class TutorialItems extends React.Component {
     e.preventDefault();
     const { deleteSingleTutorial, tutorial } = this.props;
     deleteSingleTutorial(tutorial.id);
+  }
+
+  doneOptionChange = (changeEvent2) => {
+    this.setState({
+      selectedDone: changeEvent2.target.value,
+    });
   }
 
   render() {
@@ -37,8 +47,16 @@ class TutorialItems extends React.Component {
           </button>
           </span>
           <span className="col">
-          <input type="radio" id="radio2" name="radioDisabled" id="radioBlogs" className="custom-Radio-Blogs" />
-          <label className="blogsLabel" htmlFor="radioBlogs">DONE</label>
+          {/* <input type="radio" id="radio2" name="radioDisabled" id="radioBlogs" className="custom-Radio-Blogs" />
+          <label className="blogsLabel" htmlFor="radioBlogs">DONE</label> */}
+          <form onSubmit={this.doneOptionChange}>
+          <label>
+        <input type="radio" value={tutorial.done}
+                      checked={this.state.selectedDone === 'true'}
+                      onChange={this.doneOptionChange} />
+        <span>Done</span>
+      </label>
+      </form>
           </span>
         </div>
         );

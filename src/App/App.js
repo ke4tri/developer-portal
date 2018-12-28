@@ -19,6 +19,7 @@ import Tutorial from '../components/Window/Tutorials/tutorials';
 import Blogs from '../components/Window/Blogs/blogs';
 import Resources from '../components/Window/Resourc/resources';
 import Podcasts from '../components/Window/Podcast/podcast';
+import Profile from '../components/Profile/profile';
 import connection from '../helpers/data/connection';
 import tutorials from '../helpers/data/tutorialRequest';
 import blog from '../helpers/data/blogRequests';
@@ -265,10 +266,12 @@ class App extends Component {
       <div className="App">
       <MyNavBar isAuthed={authed} logoutClickEvent={logoutClickEvent}/>
       {/* The below TutorialCrud is the form built for the radio buttons from Form.js */}
-      <div><TutorialsCrud /></div>
+      <div className="wrapper">
+      <div className="profile"><Profile /></div>
+      <div className="tutorialCrud"><TutorialsCrud /></div>
       <div className="formPrint">
       {/* The below Form is just for the window display of tabs */}
-        <Form onSubmit={this.formSubmitEvent} isEditing={isEditing} editId={editId}/>
+        <Form className="form" onSubmit={this.formSubmitEvent} isEditing={isEditing} editId={editId}/>
       </div>
       <div className="tabby">
       <Nav tabs>
@@ -331,6 +334,7 @@ class App extends Component {
           />
         </TabPane>
       </TabContent>
+      </div>
     </div>
     </div>
     );

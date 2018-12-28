@@ -2,10 +2,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import authRequests from '../../helpers/data/authRequests';
-import getSingleTutorial2 from '../../helpers/data/tutorialRequest';
-// import getSingleBlog2 from '../../helpers/data/blogRequests';
-// import getSinglePodcast2 from '../../helpers/data/podcastRequest';
-// import getSingleResources from '../../helpers/data/resourcesRequest';
 import './Form.scss';
 
 const defaultListing = {
