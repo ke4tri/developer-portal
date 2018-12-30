@@ -36,16 +36,17 @@ class App extends Component {
     githubUsername: '',
     profile: [],
     podcasts: [],
-    isEditing: false,
-    editId: '-1',
-    selectedListingId: -1,
-  }
+  };
 
   componentDidUpdate() {
+    // eslint-disable-next-line no-console
+    console.log(this.state.githubUsername);
     if (this.state.githubUsername && this.state.profile.length === 0) {
       githubData.getUser(this.state.githubUsername)
         .then((profile) => {
           this.setState({ profile });
+          // eslint-disable-next-line no-console
+          console.log('this is it', this.state.profile);
         })
         .catch(err => console.error(err));
     }
@@ -56,12 +57,6 @@ class App extends Component {
         })
         .catch(err => console.error(err));
     }
-  }
-
-  listingSelectEvent = (id) => {
-    this.setState({
-      selectedListingId: id,
-    });
   }
 
   constructor(props) {
@@ -93,8 +88,10 @@ class App extends Component {
 
     this.removeListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
+        const users = sessionStorage.getItem('githubUsername');
         this.setState({
           authed: true,
+          githubUsername: users,
         });
       } else {
         this.setState({
@@ -104,7 +101,8 @@ class App extends Component {
     });
 
     // this.removeListener = firebase.auth().onAuthStateChanged((user) => {
-    //   getUserEvents(user)
+    //   // githubData.getUser(user);
+    //   githubData.getUserEvents(user)
     //     .then((profile) => {
     //       this.setState({ profile });
     //     })
@@ -141,10 +139,11 @@ class App extends Component {
 
   componentWillUnmount() {
     this.removeListener();
-  }
+  } 
 
-  isAuthenticated = () => {
-    this.setState({ authed: true });
+  isAuthenticated = (username) => {
+    this.setState({ authed: true, githubUsername: username });
+    sessionStorage.setItem('githubUsername', username)
   }
 
   deleteOne = (tutorialId) => {

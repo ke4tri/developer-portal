@@ -9,6 +9,7 @@ const getUser = githubUsername => new Promise((resolve, reject) => {
   axios
     .get(`https://api.github.com/users/${githubUsername}?client_id=${clientId}&client_secret=${clientSecret}`)
     .then((result) => {
+      console.log(result);
       resolve(result.data);
     })
     .catch(err => reject(err));
@@ -29,9 +30,10 @@ const getUserEvents = githubUsername => new Promise((resolve, reject) => {
 });
 
 // const getUser = user => new Promise((resolve, reject) => {
-//   axios.get('https://api.github.com/users/ke4tri')
+//   axios.get(`https://api.github.com/users/${user}`)
 //     .then((res) => {
 //       resolve(res.data);
+//       console.log('this here', res.data);
 //     })
 //     .catch((err) => {
 //       reject(err);
