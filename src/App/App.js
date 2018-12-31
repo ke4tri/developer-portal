@@ -30,35 +30,13 @@ import authRequests from '../helpers/data/authRequests';
 class App extends Component {
   state = {
     authed: false,
-    githubUsername: '',
+    github_username: '',
     tutorials: [],
     blogs: [],
     resources: [],
     profile: [],
     podcasts: [],
   };
-
-  componentDidUpdate() {
-    // eslint-disable-next-line no-console
-    console.log(this.state.githubUsername);
-    if (this.state.githubUsername && this.state.profile.length === 0) {
-      githubData.getUser(this.state.githubUsername)
-        .then((profile) => {
-          this.setState({ profile });
-          debugger;
-          // eslint-disable-next-line no-console
-          console.log('this is it', this.state.profile);
-        })
-        .catch(err => console.error(err));
-    }
-    if (this.state.githubUsername && this.state.profile.length === 0) {
-      githubData.getUserEvents(this.state.githubUsername)
-        .then((commits) => {
-          this.setState({ commits });
-        })
-        .catch(err => console.error(err));
-    }
-  }
 
   constructor(props) {
     super(props);
@@ -105,11 +83,15 @@ class App extends Component {
       .catch(err => console.error('err with podcast GET', err));
 
     this.removeListener = firebase.auth().onAuthStateChanged((user) => {
+      githubData.getUserEvents(user);
+      githubData.getUser(user)
+        .then((profile) => {
+          this.setState({ profile });
+        })
+        .catch(err => console.error('error with github profile GET', err));
       if (user) {
-        const users = sessionStorage.getItem('githubUsername');
         this.setState({
           authed: true,
-          githubUsername: users,
         });
       } else {
         this.setState({
@@ -125,8 +107,7 @@ class App extends Component {
   }
 
   isAuthenticated = (username) => {
-    this.setState({ authed: true, githubUsername: username });
-    sessionStorage.setItem('githubUsername', username);
+    this.setState({ authed: true, github_username: username });
   }
 
   deleteOne = (tutorialId) => {
@@ -231,9 +212,9 @@ class App extends Component {
     // eslint-disable-next-line max-len
     // const selectedListing = listings.find(listing => listing.id === selectedListingId) || { nope: 'nope' };
 
-    const logoutClickEvent = () => {
+    const logoutClickEvent = (username) => {
       authRequests.logoutUser();
-      this.setState({ authed: false });
+      this.setState({ authed: false, github_username: username });
     };
     if (!authed) {
       return (
