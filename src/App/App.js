@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import firebase from 'firebase';
 import 'firebase/auth';
-// import { Button } from 'reactstrap';
 import {
   TabContent,
   TabPane,
@@ -12,19 +11,18 @@ import {
 import classnames from 'classnames';
 import Auth from '../components/Auth/auth';
 import MyNavBar from '../components/MyNavbar/MyNavBar';
-// import Profile from '../components/Profile/profile';
-// import Commits from '../components/CommitsData/commitsData';
 import TutorialsCrud from '../components/TutorialsCrud/tutorialsCrud';
 import Tutorial from '../components/Window/Tutorials/tutorials';
 import Blogs from '../components/Window/Blogs/blogs';
 import Resources from '../components/Window/Resourc/resources';
 import Podcasts from '../components/Window/Podcast/podcast';
+import Profile from '../components/Profile/profile';
 import connection from '../helpers/data/connection';
 import tutorials from '../helpers/data/tutorialRequest';
 import blog from '../helpers/data/blogRequests';
 import resource from '../helpers/data/resourcesRequest';
 import podcast from '../helpers/data/podcastRequest';
-// import tutorialRequests from '../helpers/data/tutorialRequest';
+import githubData from '../helpers/data/githubData';
 import Form from '../components/Form/Form';
 import './App.scss';
 import authRequests from '../helpers/data/authRequests';
@@ -32,20 +30,13 @@ import authRequests from '../helpers/data/authRequests';
 class App extends Component {
   state = {
     authed: false,
+    github_username: '',
     tutorials: [],
     blogs: [],
     resources: [],
+    profile: [],
     podcasts: [],
-    isEditing: false,
-    editId: '-1',
-    selectedListingId: -1,
-  }
-
-  listingSelectEvent = (id) => {
-    this.setState({
-      selectedListingId: id,
-    });
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -73,51 +64,18 @@ class App extends Component {
       })
       .catch(err => console.error('err with tutorials GET', err));
 
-    this.removeListener = firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        this.setState({
-          authed: true,
-        });
-      } else {
-        this.setState({
-          authed: false,
-        });
-      }
-    });
     blog.getRequest()
       .then((blogs) => {
         this.setState({ blogs });
       })
       .catch(err => console.error('err with blogs GET', err));
 
-    this.removeListener = firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        this.setState({
-          authed: true,
-        });
-      } else {
-        this.setState({
-          authed: false,
-        });
-      }
-    });
     resource.getRequest()
       .then((resources) => {
         this.setState({ resources });
       })
       .catch(err => console.error('err with resources GET', err));
 
-    this.removeListener = firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        this.setState({
-          authed: true,
-        });
-      } else {
-        this.setState({
-          authed: false,
-        });
-      }
-    });
     podcast.getRequest()
       .then((podcasts) => {
         this.setState({ podcasts });
@@ -125,6 +83,12 @@ class App extends Component {
       .catch(err => console.error('err with podcast GET', err));
 
     this.removeListener = firebase.auth().onAuthStateChanged((user) => {
+      githubData.getUserEvents(user);
+      githubData.getUser(user)
+        .then((profile) => {
+          this.setState({ profile });
+        })
+        .catch(err => console.error('error with github profile GET', err));
       if (user) {
         this.setState({
           authed: true,
@@ -139,10 +103,11 @@ class App extends Component {
 
   componentWillUnmount() {
     this.removeListener();
+    // authRequests.logoutUser();
   }
 
-  isAuthenticated = () => {
-    this.setState({ authed: true });
+  isAuthenticated = (username) => {
+    this.setState({ authed: true, github_username: username });
   }
 
   deleteOne = (tutorialId) => {
@@ -234,9 +199,7 @@ class App extends Component {
     }
   }
 
-
   passListingToEdit = tutorialId => this.setState({ isEditing: true, editId: tutorialId });
-
 
   render() {
     const {
@@ -249,9 +212,9 @@ class App extends Component {
     // eslint-disable-next-line max-len
     // const selectedListing = listings.find(listing => listing.id === selectedListingId) || { nope: 'nope' };
 
-    const logoutClickEvent = () => {
+    const logoutClickEvent = (username) => {
       authRequests.logoutUser();
-      this.setState({ authed: false });
+      this.setState({ authed: false, github_username: username });
     };
     if (!authed) {
       return (
@@ -265,10 +228,12 @@ class App extends Component {
       <div className="App">
       <MyNavBar isAuthed={authed} logoutClickEvent={logoutClickEvent}/>
       {/* The below TutorialCrud is the form built for the radio buttons from Form.js */}
-      <div><TutorialsCrud /></div>
+      <div className="wrapper">
+      <div className="profile"><Profile /></div>
+      <div className="tutorialCrud"><TutorialsCrud /></div>
       <div className="formPrint">
       {/* The below Form is just for the window display of tabs */}
-        <Form onSubmit={this.formSubmitEvent} isEditing={isEditing} editId={editId}/>
+        <Form className="form" onSubmit={this.formSubmitEvent} isEditing={isEditing} editId={editId}/>
       </div>
       <div className="tabby">
       <Nav tabs>
@@ -331,6 +296,7 @@ class App extends Component {
           />
         </TabPane>
       </TabContent>
+      </div>
     </div>
     </div>
     );
