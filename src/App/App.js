@@ -30,10 +30,10 @@ import authRequests from '../helpers/data/authRequests';
 class App extends Component {
   state = {
     authed: false,
+    githubUsername: '',
     tutorials: [],
     blogs: [],
     resources: [],
-    githubUsername: '',
     profile: [],
     podcasts: [],
   };
@@ -45,6 +45,7 @@ class App extends Component {
       githubData.getUser(this.state.githubUsername)
         .then((profile) => {
           this.setState({ profile });
+          debugger;
           // eslint-disable-next-line no-console
           console.log('this is it', this.state.profile);
         })
@@ -85,39 +86,6 @@ class App extends Component {
       })
       .catch(err => console.error('err with tutorials GET', err));
 
-
-    this.removeListener = firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        const users = sessionStorage.getItem('githubUsername');
-        this.setState({
-          authed: true,
-          githubUsername: users,
-        });
-      } else {
-        this.setState({
-          authed: false,
-        });
-      }
-    });
-
-    // this.removeListener = firebase.auth().onAuthStateChanged((user) => {
-    //   // githubData.getUser(user);
-    //   githubData.getUserEvents(user)
-    //     .then((profile) => {
-    //       this.setState({ profile });
-    //     })
-    //     .catch(err => console.error('error with github profile GET', err));
-    //   if (user) {
-    //     this.setState({
-    //       authed: true,
-    //     });
-    //   } else {
-    //     this.setState({
-    //       authed: false,
-    //     });
-    //   }
-    // });
-
     blog.getRequest()
       .then((blogs) => {
         this.setState({ blogs });
@@ -135,15 +103,30 @@ class App extends Component {
         this.setState({ podcasts });
       })
       .catch(err => console.error('err with podcast GET', err));
+
+    this.removeListener = firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        const users = sessionStorage.getItem('githubUsername');
+        this.setState({
+          authed: true,
+          githubUsername: users,
+        });
+      } else {
+        this.setState({
+          authed: false,
+        });
+      }
+    });
   }
 
   componentWillUnmount() {
     this.removeListener();
-  } 
+    // authRequests.logoutUser();
+  }
 
   isAuthenticated = (username) => {
     this.setState({ authed: true, githubUsername: username });
-    sessionStorage.setItem('githubUsername', username)
+    sessionStorage.setItem('githubUsername', username);
   }
 
   deleteOne = (tutorialId) => {
@@ -235,9 +218,7 @@ class App extends Component {
     }
   }
 
-
   passListingToEdit = tutorialId => this.setState({ isEditing: true, editId: tutorialId });
-
 
   render() {
     const {

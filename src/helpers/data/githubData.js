@@ -9,7 +9,6 @@ const getUser = githubUsername => new Promise((resolve, reject) => {
   axios
     .get(`https://api.github.com/users/${githubUsername}?client_id=${clientId}&client_secret=${clientSecret}`)
     .then((result) => {
-      console.log(result);
       resolve(result.data);
     })
     .catch(err => reject(err));
@@ -50,4 +49,7 @@ const getUserEvents = githubUsername => new Promise((resolve, reject) => {
 //     });
 // });
 
-export default { getUser, getUserEvents };
+export default {
+  getUser,
+  getUserEvents,
+};
