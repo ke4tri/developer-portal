@@ -55,8 +55,11 @@ class Form extends React.Component {
     const { newListing } = this.state;
     return (
       <div className="form">
+      <h2>Add Resources</h2>
         <form onSubmit={this.formSubmit}>
+        <div className="formWrapper">
           <div className="form-group">
+          <div>
             <label htmlFor="exampleInputEmail1"></label>
             <input
               type="text"
@@ -67,7 +70,9 @@ class Form extends React.Component {
               value={newListing.address}
               onChange={this.discriptionChange}
             />
-            <label className="ml-3" htmlFor="exampleInputEmail1"></label>
+            </div>
+            <div>
+            <label className="" htmlFor="exampleInputEmail1"></label>
             <input
               type="text"
               className="form-url"
@@ -77,6 +82,7 @@ class Form extends React.Component {
               value={newListing.url}
               onChange={this.urlChange}
             />
+            </div>
           </div>
           <div className="radio">
       <label>
@@ -112,6 +118,7 @@ class Form extends React.Component {
     </div>
         <div>
           <button className="addButton btn btn-danger ml-4" type="submit">Save</button>
+        </div>
         </div>
         </form>
       </div>
