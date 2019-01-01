@@ -1,11 +1,12 @@
-.form {
-  display: flex;
-  justify-content: flex-end;
-  margin-right: 50px;
-}
+// .form {
+//   display: flex;
+//   justify-content: flex-end;
+//   margin-right: 50px;
+// }
 
 .form-group {
   display: flex;
+  flex-direction: column;
   justify-content: center;
 }
 
@@ -14,5 +15,12 @@
   border: black solid 2px;
   max-width: 150px;
   height: auto;
+}
+
+.formWrapper {
+ display: flex !important;
+}
+
+.radio {
   margin-left: 10px;
 }

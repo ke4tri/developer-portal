@@ -224,7 +224,6 @@ class App extends Component {
       <MyNavBar isAuthed={authed} logoutClickEvent={logoutClickEvent}/>
       {/* The below TutorialCrud is the form built for the radio buttons from Form.js */}
       <div className="wrapper">
-      <div className="tutorialCrud"><TutorialsCrud /></div>
       <div className="profile">
       { authed && <Profile profile={this.state.profile}/> }
       </div>
