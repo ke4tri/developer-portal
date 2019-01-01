@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React, { Component } from 'react';
 import firebase from 'firebase';
 import 'firebase/auth';
@@ -11,18 +12,19 @@ import {
 import classnames from 'classnames';
 import Auth from '../components/Auth/auth';
 import MyNavBar from '../components/MyNavbar/MyNavBar';
+import Profile from '../components/Profile/profile';
 import TutorialsCrud from '../components/TutorialsCrud/tutorialsCrud';
 import Tutorial from '../components/Window/Tutorials/tutorials';
 import Blogs from '../components/Window/Blogs/blogs';
 import Resources from '../components/Window/Resourc/resources';
 import Podcasts from '../components/Window/Podcast/podcast';
-import Profile from '../components/Profile/profile';
 import connection from '../helpers/data/connection';
 import tutorials from '../helpers/data/tutorialRequest';
 import blog from '../helpers/data/blogRequests';
 import resource from '../helpers/data/resourcesRequest';
 import podcast from '../helpers/data/podcastRequest';
-import githubData from '../helpers/data/githubData';
+// import githubData from '../helpers/data/githubData';
+import getUser from '../helpers/data/githubData';
 import Form from '../components/Form/Form';
 import './App.scss';
 import authRequests from '../helpers/data/authRequests';
@@ -36,7 +38,7 @@ class App extends Component {
     resources: [],
     profile: [],
     podcasts: [],
-  };
+  }
 
   constructor(props) {
     super(props);
@@ -83,21 +85,13 @@ class App extends Component {
       .catch(err => console.error('err with podcast GET', err));
 
     this.removeListener = firebase.auth().onAuthStateChanged((user) => {
-      githubData.getUserEvents(user);
-      githubData.getUser(user)
+      // githubData.getUserEvents(user);
+      // githubData.getUser(user)
+      getUser(user)
         .then((profile) => {
           this.setState({ profile });
         })
         .catch(err => console.error('error with github profile GET', err));
-      if (user) {
-        this.setState({
-          authed: true,
-        });
-      } else {
-        this.setState({
-          authed: false,
-        });
-      }
     });
   }
 
@@ -224,13 +218,16 @@ class App extends Component {
         </div>
       );
     }
+
     return (
       <div className="App">
       <MyNavBar isAuthed={authed} logoutClickEvent={logoutClickEvent}/>
       {/* The below TutorialCrud is the form built for the radio buttons from Form.js */}
       <div className="wrapper">
-      <div className="profile"><Profile /></div>
       <div className="tutorialCrud"><TutorialsCrud /></div>
+      <div className="profile">
+      { authed && <Profile profile={this.state.profile}/> }
+      </div>
       <div className="formPrint">
       {/* The below Form is just for the window display of tabs */}
         <Form className="form" onSubmit={this.formSubmitEvent} isEditing={isEditing} editId={editId}/>
