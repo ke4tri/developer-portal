@@ -35,7 +35,7 @@ class App extends Component {
     githubUsername: '',
     githubToken: '',
     commitCount: 0,
-    allItems: [],
+    // allItems: [],
     tutorials: [],
     blogs: [],
     resources: [],
@@ -72,13 +72,14 @@ class App extends Component {
       .catch(err => console.error('error with github user events GET', err));
   }
 
-  getAllItems = () => {
-    const uid = authRequests.getCurrentUid();
-    itemData.getAllItemsData(uid)
-      .then((allItems) => {
-        this.setState({ allItems });
-      });
-  }
+  // getAllItems = () => {
+  //   const uid = authRequests.getCurrentUid();
+  //   console.log(getAllItems);
+  //   itemData.getAllItemsData(uid)
+  //     .then((allItems) => {
+  //       this.setState({ allItems });
+  //     });
+  // }
 
   conponentDidUpdate() {
   }
@@ -89,14 +90,12 @@ class App extends Component {
       if (user) {
         const users = sessionStorage.getItem('githubUsername');
         const gitHubTokenStorage = sessionStorage.getItem('githubToken');
-        // this.displayView(this.state.view);
-        const allItems = this.getAllItems();
         this.getGithubData(users, gitHubTokenStorage);
         this.setState({
           authed: true,
           githubUsername: users,
           githubToken: gitHubTokenStorage,
-          allItems,
+          // allItems,
         });
       } else {
         this.setState({
@@ -243,12 +242,9 @@ class App extends Component {
       // selectedListingId,
     } = this.state;
 
-    // eslint-disable-next-line max-len
-    // const selectedListing = listings.find(listing => listing.id === selectedListingId) || { nope: 'nope' };
-
     const logoutClickEvent = () => {
       authRequests.logoutUser();
-      sessionStorage.clear();
+      // sessionStorage.clear();
       this.setState({ authed: false, githubUsername: '', githubToken: '' });
     };
     if (!authed) {
@@ -263,10 +259,11 @@ class App extends Component {
     return (
       <div className="App">
       <MyNavBar isAuthed={authed} logoutClickEvent={logoutClickEvent}/>
-      {/* The below TutorialCrud is the form built for the radio buttons from Form.js */}
       <div className="wrapper">
       <div className="profile">
-      { authed && <Profile profile={this.state.profile}/> }
+      {/* { authed && <Profile profile={this.state.profile} commitCount={this.state.commitCount}/> }
+      </div> */}
+      <Profile profile={this.state.profile} commitCount={this.state.commitCount}/>
       </div>
       <div className="formPrint">
       {/* The below Form is just for the window display of tabs */}
