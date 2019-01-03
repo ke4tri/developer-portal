@@ -13,7 +13,6 @@ import classnames from 'classnames';
 import Auth from '../components/Auth/auth';
 import MyNavBar from '../components/MyNavbar/MyNavBar';
 import Profile from '../components/Profile/profile';
-// import TutorialsCrud from '../components/TutorialsCrud/tutorialsCrud';
 import Tutorial from '../components/Window/Tutorials/tutorials';
 import Blogs from '../components/Window/Blogs/blogs';
 import Resources from '../components/Window/Resourc/resources';
@@ -24,7 +23,6 @@ import blog from '../helpers/data/blogRequests';
 import resource from '../helpers/data/resourcesRequest';
 import podcast from '../helpers/data/podcastRequest';
 import githubData from '../helpers/data/githubData';
-// import getUser from '../helpers/data/githubData';
 import Form from '../components/Form/Form';
 import './App.scss';
 import authRequests from '../helpers/data/authRequests';
@@ -35,7 +33,6 @@ class App extends Component {
     githubUsername: '',
     githubToken: '',
     commitCount: 0,
-    // allItems: [],
     tutorials: [],
     blogs: [],
     resources: [],
@@ -81,11 +78,6 @@ class App extends Component {
         const users = sessionStorage.getItem('githubUsername');
         const gitHubTokenStorage = sessionStorage.getItem('githubToken');
         this.getGithubData(users, gitHubTokenStorage);
-        // this.setState({
-        //   authed: true,
-        //   // githubUsername: users,
-        //   // githubToken: gitHubTokenStorage,
-        // });
       } else {
         this.setState({
           authed: false,
@@ -221,8 +213,6 @@ class App extends Component {
     }
   }
 
-  // passListingToEdit = tutorialId => this.setState({ isEditing: true, editId: tutorialId });
-
   render() {
     const {
       authed,
@@ -253,7 +243,6 @@ class App extends Component {
       { authed && <Profile profile={this.state.profile} commitCount={this.state.commitCount} /> }
       </div>
       <div className="formPrint">
-      {/* The below Form is just for the window display of tabs */}
         <Form className="form" onSubmit={this.formSubmitEvent} isEditing={isEditing} editId={editId}/>
       </div>
       <div className="tabby">

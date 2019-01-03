@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import tutorialShapes from '../../helpers/propz/tutorialShapes';
 import podcastShapes from '../../helpers/propz/podcastShapes';
 import './PodcastItems.scss';
 import authRequests from '../../helpers/data/authRequests';
@@ -48,7 +47,6 @@ class PodcastItems extends React.Component {
     return (
       <li className="tutorial-item text-center">
         <span className="col">{podcast.name}</span>
-        {/* <span className="col-3">{tutorial.uid}</span> */}
         <span className="col"><a href={podcast.url} target="_blank">Link</a></span>
         {makeButtons()}
       </li>

@@ -13,10 +13,10 @@ class Profile extends React.Component {
           <img className="img-fluid" src={profile.avatar_url} alt="github pic"></img>
           <p className="card-text">{profile.bio}</p>
           <h2 className="card-title">{profile.login}</h2>
-          <a href={profile.html_url} className="_blank">https://github.com/ke4tri</a>
+          <a href={profile.html_url} className="_blank">https://github.com/{profile.login}</a>
           <br/>
           <br/>
-          <h6>commits</h6>
+          <h6>COMMITS</h6>
           <p>in the last 5 days</p>
           <h4>{commitCount}</h4>
         </div>
