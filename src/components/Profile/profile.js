@@ -1,26 +1,27 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
 import './profile.scss';
 
 class Profile extends React.Component {
-  // static propTypes = {
-  //   profile: PropTypes.array,
-  // }
 
   render() {
     const { profile, commitCount } = this.props;
     return (
-      <React.Fragment>
       <div className="profile col">
-      <div className="profileWrap">
-      <h2>Profile</h2>
-      <h2>{profile.bio}</h2>
-        <h6>commits</h6>
-        <p>in the last 5 days</p>
-        <h1>{commitCount}</h1>
+        <div className="profileWrap">
+        <h2>Profile</h2>
+        <div className="card">
+          <img className="img-fluid" src={profile.avatar_url} alt="github pic"></img>
+          <p className="card-text">{profile.bio}</p>
+          <h2 className="card-title">{profile.login}</h2>
+          <a href={profile.html_url} className="_blank">https://github.com/ke4tri</a>
+          <br/>
+          <br/>
+          <h6>commits</h6>
+          <p>in the last 5 days</p>
+          <h4>{commitCount}</h4>
+        </div>
+        </div>
       </div>
-      </div>
-      </React.Fragment>
     );
   }
 }
