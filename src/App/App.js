@@ -13,7 +13,7 @@ import classnames from 'classnames';
 import Auth from '../components/Auth/auth';
 import MyNavBar from '../components/MyNavbar/MyNavBar';
 import Profile from '../components/Profile/profile';
-import TutorialsCrud from '../components/TutorialsCrud/tutorialsCrud';
+// import TutorialsCrud from '../components/TutorialsCrud/tutorialsCrud';
 import Tutorial from '../components/Window/Tutorials/tutorials';
 import Blogs from '../components/Window/Blogs/blogs';
 import Resources from '../components/Window/Resourc/resources';
@@ -23,8 +23,8 @@ import tutorials from '../helpers/data/tutorialRequest';
 import blog from '../helpers/data/blogRequests';
 import resource from '../helpers/data/resourcesRequest';
 import podcast from '../helpers/data/podcastRequest';
-// import githubData from '../helpers/data/githubData';
-import getUser from '../helpers/data/githubData';
+import githubData from '../helpers/data/githubData';
+// import getUser from '../helpers/data/githubData';
 import Form from '../components/Form/Form';
 import './App.scss';
 import authRequests from '../helpers/data/authRequests';
@@ -32,7 +32,10 @@ import authRequests from '../helpers/data/authRequests';
 class App extends Component {
   state = {
     authed: false,
-    github_username: '',
+    githubUsername: '',
+    githubToken: '',
+    commitCount: 0,
+    // allItems: [],
     tutorials: [],
     blogs: [],
     resources: [],
@@ -42,7 +45,6 @@ class App extends Component {
 
   constructor(props) {
     super(props);
-
     this.toggle = this.toggle.bind(this);
     this.state = {
       activeTab: '1',
@@ -57,8 +59,39 @@ class App extends Component {
     }
   }
 
+  getGithubData = (users, gitHubTokenStorage) => {
+    githubData.getUser(gitHubTokenStorage)
+      .then((profile) => {
+        this.setState({ profile });
+      });
+    githubData.getUserEvents(users, gitHubTokenStorage)
+      .then((commitCount) => {
+        this.setState({ commitCount });
+      })
+      .catch(err => console.error('error with github user events GET', err));
+  }
+
+  conponentDidUpdate() {
+  }
+
   componentDidMount() {
     connection();
+    this.removeListener = firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        const users = sessionStorage.getItem('githubUsername');
+        const gitHubTokenStorage = sessionStorage.getItem('githubToken');
+        this.getGithubData(users, gitHubTokenStorage);
+        // this.setState({
+        //   authed: true,
+        //   // githubUsername: users,
+        //   // githubToken: gitHubTokenStorage,
+        // });
+      } else {
+        this.setState({
+          authed: false,
+        });
+      }
+    });
 
     tutorials.getRequest()
       .then((tutorials) => {
@@ -83,25 +116,20 @@ class App extends Component {
         this.setState({ podcasts });
       })
       .catch(err => console.error('err with podcast GET', err));
+  }
 
-    this.removeListener = firebase.auth().onAuthStateChanged((user) => {
-      // githubData.getUserEvents(user);
-      // githubData.getUser(user)
-      getUser(user)
-        .then((profile) => {
-          this.setState({ profile });
-        })
-        .catch(err => console.error('error with github profile GET', err));
+  isAuthenticated = (user, accessToken) => {
+    this.setState({
+      authed: true,
+      githubUsername: user,
+      githubToken: accessToken,
     });
+    sessionStorage.setItem('githubUsername', user);
+    sessionStorage.setItem('githubToken', accessToken);
   }
 
   componentWillUnmount() {
     this.removeListener();
-    // authRequests.logoutUser();
-  }
-
-  isAuthenticated = (username) => {
-    this.setState({ authed: true, github_username: username });
   }
 
   deleteOne = (tutorialId) => {
@@ -193,7 +221,7 @@ class App extends Component {
     }
   }
 
-  passListingToEdit = tutorialId => this.setState({ isEditing: true, editId: tutorialId });
+  // passListingToEdit = tutorialId => this.setState({ isEditing: true, editId: tutorialId });
 
   render() {
     const {
@@ -203,12 +231,10 @@ class App extends Component {
       // selectedListingId,
     } = this.state;
 
-    // eslint-disable-next-line max-len
-    // const selectedListing = listings.find(listing => listing.id === selectedListingId) || { nope: 'nope' };
-
-    const logoutClickEvent = (username) => {
+    const logoutClickEvent = () => {
       authRequests.logoutUser();
-      this.setState({ authed: false, github_username: username });
+      sessionStorage.clear();
+      this.setState({ authed: false, githubUsername: '', githubToken: '' });
     };
     if (!authed) {
       return (
@@ -222,10 +248,9 @@ class App extends Component {
     return (
       <div className="App">
       <MyNavBar isAuthed={authed} logoutClickEvent={logoutClickEvent}/>
-      {/* The below TutorialCrud is the form built for the radio buttons from Form.js */}
       <div className="wrapper">
       <div className="profile">
-      { authed && <Profile profile={this.state.profile}/> }
+      { authed && <Profile profile={this.state.profile} commitCount={this.state.commitCount} /> }
       </div>
       <div className="formPrint">
       {/* The below Form is just for the window display of tabs */}

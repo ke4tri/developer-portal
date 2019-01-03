@@ -2,9 +2,9 @@ import React from 'react';
 import './profile.scss';
 
 class Profile extends React.Component {
-  render() {
-    const { profile } = this.props;
 
+  render() {
+    const { profile, commitCount } = this.props;
     return (
       <div className="profile col">
         <div className="profileWrap">
@@ -18,6 +18,7 @@ class Profile extends React.Component {
           <br/>
           <h6>commits</h6>
           <p>in the last 5 days</p>
+          <h4>{commitCount}</h4>
         </div>
         </div>
       </div>
