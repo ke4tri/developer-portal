@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import tutorialShapes from '../../helpers/propz/tutorialShapes';
 import blogShapes from '../../helpers/propz/blogShapes';
 import './BlogItems.scss';
 import authRequests from '../../helpers/data/authRequests';
@@ -48,7 +47,6 @@ class BlogItems extends React.Component {
     return (
       <li className="tutorial-item text-center">
         <span className="col">{blog.name}</span>
-        {/* <span className="col-3">{tutorial.uid}</span> */}
         <span className="col"><a href={blog.url} target="_blank">Link</a></span>
         {makeButtons()}
       </li>

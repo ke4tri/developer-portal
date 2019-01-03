@@ -19,7 +19,6 @@ const getRequest = () => new Promise((resolve, reject) => {
     .catch(err => reject(err));
 });
 
-// all of the below are just for that of tutorials and nothing else
 const deleteBlog = blogId => axios.delete(`${firebaseUrl}/blogs/${blogId}.json`);
 
 const postRequestBlog = blog => axios.post(`${firebaseUrl}/blogs.json`, blog);

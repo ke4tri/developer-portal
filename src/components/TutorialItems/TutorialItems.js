@@ -47,8 +47,6 @@ class TutorialItems extends React.Component {
           </button>
           </span>
           <span className="col">
-          {/* <input type="radio" id="radio2" name="radioDisabled" id="radioBlogs" className="custom-Radio-Blogs" />
-          <label className="blogsLabel" htmlFor="radioBlogs">DONE</label> */}
           <form onSubmit={this.doneOptionChange}>
           <label>
         <input type="radio" value={tutorial.done}
@@ -66,7 +64,6 @@ class TutorialItems extends React.Component {
     return (
       <li className="tutorial-item text-center">
         <span className="col">{tutorial.name}</span>
-        {/* <span className="col-3">{tutorial.uid}</span> */}
         <span className="col"><a href={tutorial.url} target="_blank">Link</a></span>
         {makeButtons()}
       </li>

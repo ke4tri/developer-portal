@@ -27,7 +27,6 @@ class Tutorial extends React.Component {
     ));
     return (
       <div className="tutorials2 col">
-        <h2>Tutorials</h2>
         <ul>
           {tutorialItemComponents}
         </ul>

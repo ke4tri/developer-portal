@@ -28,7 +28,6 @@ class Resources extends React.Component {
 
     return (
       <div className="resources col">
-        <h2>Resources</h2>
         <ul>
           {resourceItemComponents}
         </ul>

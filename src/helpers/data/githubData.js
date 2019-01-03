@@ -1,5 +1,4 @@
 import axios from 'axios';
-// import apiKeys from '../apiKeys';
 
 
 const getUser = token => new Promise((resolve, reject) => {
@@ -32,4 +31,3 @@ export default {
   getUser,
   getUserEvents,
 };
-// export default getUser;

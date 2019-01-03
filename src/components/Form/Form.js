@@ -35,7 +35,6 @@ class Form extends React.Component {
       selectedOption: changeEvent.target.value,
     });
   }
-  // These two below are what gets the messages in the input fields
 
   discriptionChange = e => this.formFieldStringState('name', e);
 
