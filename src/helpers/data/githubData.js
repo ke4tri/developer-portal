@@ -5,7 +5,8 @@ import axios from 'axios';
 const getUser = token => new Promise((resolve, reject) => {
   axios.get('https://api.github.com/user', { headers: { Authorization: `token ${token}` } })
     .then((res) => {
-      resolve(res.data);
+      const profile = res.data;
+      resolve(profile);
     })
     .catch((err) => {
       reject(err);
