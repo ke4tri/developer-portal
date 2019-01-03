@@ -1,11 +1,9 @@
 import axios from 'axios';
 // import apiKeys from '../apiKeys';
 
-// const clientId = apiKeys.githubApi.client_id;
-// const clientSecret = apiKeys.githubApi.client_secret;
 
-const getUser = user => new Promise((resolve, reject) => {
-  axios.get('https://api.github.com/users/ke4tri')
+const getUser = token => new Promise((resolve, reject) => {
+  axios.get('https://api.github.com/user', { headers: { Authorization: `token ${token}` } })
     .then((res) => {
       resolve(res.data);
     })
@@ -14,19 +12,23 @@ const getUser = user => new Promise((resolve, reject) => {
     });
 });
 
-// const getUserEvents = username => new Promise((resolve, reject) => {
-//   axios.get('https://api.github.com/users/ke4tri/events/public')
-//     .then((res) => {
-//       // resolve(res.data[0]["actor"]);
-//       resolve(res.data);
-//     })
-//     .catch((err) => {
-//       reject(err);
-//     });
-// });
+const getUserEvents = (userName, token) => new Promise((resolve, reject) => {
+  axios.get(`https://api.github.com/users/${userName}/events/public`, { headers: { Authorization: `token ${token}` } })
+    .then((res) => {
+      let commitCount = 0;
+      const pushEvents = res.data.filter(event => event.type === 'PushEvent');
+      pushEvents.forEach((pushEvent) => {
+        commitCount += pushEvent.payload.commits.length;
+      });
+      resolve(commitCount);
+    })
+    .catch((err) => {
+      reject(err);
+    });
+});
 
-// export default {
-//   getUser,
-//   getUserEvents,
-// };
-export default getUser;
+export default {
+  getUser,
+  getUserEvents,
+};
+// export default getUser;
