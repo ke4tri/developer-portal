@@ -9,7 +9,7 @@ React and Firebase based app used to keep track of resourse for a developer. Tut
 * Use a checkbox to mark resources as completed
 
 ## Screenshots
-![Main Screenshot]()
+![Main Screenshot](https://github.com/ke4tri/developer-portal/blob/master/screenshot.JPG?raw=true)
 
 ## How to run this project:
 
