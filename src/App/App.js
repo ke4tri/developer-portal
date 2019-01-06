@@ -69,11 +69,14 @@ class App extends Component {
       .catch(err => console.error('error with github user events GET', err));
   }
 
+
   conponentDidUpdate() {
+    this.removeListener();
   }
 
   componentDidMount() {
     connection();
+
     this.removeListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         const users = sessionStorage.getItem('githubUsername');
@@ -81,8 +84,8 @@ class App extends Component {
         this.getGithubData(users, gitHubTokenStorage);
       } else {
         this.setState({
-          authed: false,
           authed2: false,
+          authed: false,
         });
       }
     });
@@ -218,8 +221,8 @@ class App extends Component {
 
   render() {
     const {
-      authed,
       authed2,
+      authed,
       isEditing,
       editId,
       // selectedListingId,
@@ -228,7 +231,7 @@ class App extends Component {
     const logoutClickEvent = () => {
       authRequests.logoutUser();
       sessionStorage.clear();
-      this.setState({ authed: false, githubUsername: '', githubToken: '', authed2: false });
+      this.setState({ authed2: false, githubUsername: '', githubToken: '', authed: false });
     };
 
     if (!authed && !authed2) {
@@ -245,7 +248,7 @@ class App extends Component {
       <MyNavBar isAuthed={authed} logoutClickEvent={logoutClickEvent}/>
       <div className="wrapper">
       <div className="profile">
-      { authed && <Profile profile={this.state.profile} commitCount={this.state.commitCount} /> }
+      { authed2 && <Profile profile={this.state.profile} commitCount={this.state.commitCount} /> }
       </div>
       <div className="formPrint">
         <Form className="form" onSubmit={this.formSubmitEvent} isEditing={isEditing} editId={editId}/>
