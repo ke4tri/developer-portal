@@ -30,6 +30,7 @@ import authRequests from '../helpers/data/authRequests';
 class App extends Component {
   state = {
     authed: false,
+    authed2: false,
     githubUsername: '',
     githubToken: '',
     commitCount: 0,
@@ -81,6 +82,7 @@ class App extends Component {
       } else {
         this.setState({
           authed: false,
+          authed2: false,
         });
       }
     });
@@ -115,6 +117,7 @@ class App extends Component {
       authed: true,
       githubUsername: user,
       githubToken: accessToken,
+      authed2: true,
     });
     sessionStorage.setItem('githubUsername', user);
     sessionStorage.setItem('githubToken', accessToken);
@@ -216,6 +219,7 @@ class App extends Component {
   render() {
     const {
       authed,
+      authed2,
       isEditing,
       editId,
       // selectedListingId,
@@ -224,9 +228,10 @@ class App extends Component {
     const logoutClickEvent = () => {
       authRequests.logoutUser();
       sessionStorage.clear();
-      this.setState({ authed: false, githubUsername: '', githubToken: '' });
+      this.setState({ authed: false, githubUsername: '', githubToken: '', authed2: false });
     };
-    if (!authed) {
+
+    if (!authed && !authed2) {
       return (
         <div className="App">
         <MyNavBar isAuthed={authed} logoutClickEvent={logoutClickEvent}/>
