@@ -63,6 +63,7 @@ class App extends Component {
     githubData.getUser(gitHubTokenStorage)
       .then((profile) => {
         this.setState({ profile });
+        this.setState({ authed: true });
       });
     githubData.getUserEvents(users, gitHubTokenStorage)
       .then((commitCount) => {
@@ -133,7 +134,6 @@ class App extends Component {
     sessionStorage.setItem('githubToken', accessToken);
     this.getGithubData(username, accessToken);
     this.setState({
-      authed: true,
       githubUsername: username,
       githubToken: accessToken,
     });
@@ -255,9 +255,7 @@ class App extends Component {
       <MyNavBar isAuthed={authed} logoutClickEvent={logoutClickEvent}/>
       <div className="wrapper">
       <div className="profile">
-      <Profile
-      profile={this.state.profile}
-      commitCount={this.state.commitCount} />
+      { authed && <Profile isAuthed={authed} profile={this.state.profile} commitCount={this.state.commitCount} /> }
       </div>
       <div className="formPrint">
         <Form className="form" onSubmit={this.formSubmitEvent} isEditing={isEditing} editId={editId}/>

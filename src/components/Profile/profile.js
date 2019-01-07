@@ -6,10 +6,12 @@ class Profile extends React.Component {
     const {
       profile,
       commitCount,
+      isAuthed,
     } = this.props;
     console.log(profile, commitCount);
 
-    return (
+    if (isAuthed) {
+      return (
       <div className="profile col">
         <div className="profileWrap">
         <h2>Profile</h2>
@@ -26,7 +28,8 @@ class Profile extends React.Component {
         </div>
         </div>
       </div>
-    );
+      );
+    }
   }
 }
 
