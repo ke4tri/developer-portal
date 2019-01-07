@@ -23,7 +23,7 @@ class Profile extends React.Component {
           <br/>
           <br/>
           <h6>COMMITS</h6>
-          <p>in the last 5 days</p> */}
+          <p>in the last 5 days</p>
            <h4>{commitCount}</h4>
         </div>
         </div>
